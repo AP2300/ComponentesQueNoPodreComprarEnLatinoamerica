@@ -29,7 +29,7 @@ module.exports.LogUser = (req,res)=>{
                 msg:"este usuario no existe"
             })
         }else{
-            await bcrypt.compare(req.body.pass, data.pass, (err,result)=>{
+            await bcrypt.compare(req.body.pass, data.clave, (err,result)=>{
                 if(err){
                     console.log(err);
                 }else{
