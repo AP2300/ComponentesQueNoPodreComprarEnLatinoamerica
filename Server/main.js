@@ -2,15 +2,14 @@ const   express               = require("express"),
         app                   = express(),
         BodyParser            = require("body-parser"),
         FP                    = require("express-fileupload"),
-        bcrypt                = require("bcryptjs"),   
-        NodeMailer            = require("nodemailer"),
-        fs                    = require("fs"),
-        { v4: uuidv4 }        = require('uuid');
+        bcrypt                = require("bcryptjs"),
+        NodeMailer            = require("nodemailer")
+        // fs                    = require("fs"),
+        // { v4: uuidv4 }        = require('uuid');
 
 ///////////////Configuraciones de la app////////////////////
 app.set("port",process.env.PORT||3000);
 app.use(BodyParser.urlencoded({extended:true}));
-app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(FP());
 ////////////////////////////////////////////////////////////
@@ -24,8 +23,17 @@ let transporter = NodeMailer.createTransport({
     }
 });
 ///////////////////////////////////////////////////////
+console.log("Entre Aqui");
+
 const register = require("./routes/register");
 const login = require("./routes/login")
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
+
+
+
+app.listen(app.get("port"), function(err){
+    if(err) console.log(err);
+    else console.log("servidor iniciado");  
+});
