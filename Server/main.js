@@ -24,3 +24,8 @@ let transporter = NodeMailer.createTransport({
     }
 });
 ///////////////////////////////////////////////////////
+const register = require("./routes/register");
+const login = require("./routes/login")
+
+app.post("/register",register.ValidateData, register.RegisterUser);
+app.post("/login", login.ValidateData, login.LogUser);
