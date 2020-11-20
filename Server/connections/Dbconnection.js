@@ -2,11 +2,11 @@ import Sql from "mysql";
 
 var DBconfig = {
     connectionLimit : 1,
-    host     : "",
-    port     : "",
-    user     : '',
-    password : '',
-    database : ''
+    host     : "remotemysql.com",
+    port     : "3306",
+    user     : ' Uf8RIeXg2c',
+    password : 'n4WMYf7dUv',
+    database : 'Uf8RIeXg2c'
 };
 
 module.exports = Sql.createPool(DBconfig);
