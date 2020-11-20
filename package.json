@@ -1,0 +1,19 @@
+{
+  "name": "proyectodb",
+  "version": "1.0.0",
+  "description": "un proyecto para base de datos",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AP2300/ComponentesQueNoPodreComprarEnLatinoamerica.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AP2300/ComponentesQueNoPodreComprarEnLatinoamerica/issues"
+  },
+  "homepage": "https://github.com/AP2300/ComponentesQueNoPodreComprarEnLatinoamerica#readme"
+}
