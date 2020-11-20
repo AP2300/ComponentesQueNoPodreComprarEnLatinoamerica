@@ -43,6 +43,3 @@ function register() {
   
 }
 
-if(window.location.pathname === "/Front/register.html"){
-    register();
-}
