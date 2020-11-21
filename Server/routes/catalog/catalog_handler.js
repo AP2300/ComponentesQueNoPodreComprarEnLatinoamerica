@@ -1,9 +1,8 @@
 const catalog = require("./catalog");
 
-module.exports.ShowCatalog = (req,res)=>{
+module.exports.ShowCatalog = (_,res)=>{
     catalog.catalog()
     .then(async (data) => {
-        console.log("log del then ==>"+data);
         if(data == undefined){
             res.send({
                 success:false,
