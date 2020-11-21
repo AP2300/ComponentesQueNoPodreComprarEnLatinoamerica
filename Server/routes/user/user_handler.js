@@ -1,4 +1,4 @@
-const token = require("./../../models/token")
+const _token = require("./../../models/token")
 const user = require("./user");
 
 module.exports.GetUserData = async (req, res)=>{
@@ -7,14 +7,14 @@ module.exports.GetUserData = async (req, res)=>{
 
     user.user(decode.id)
     .then(data =>{
-        res.send({
+       return res.send({
             success:true,
             data:data
         })
     })
     .catch(err =>{
         console.log(err);
-        res.send({
+        return res.send({
             success:false
         })
     })
