@@ -53,9 +53,9 @@ exports.register = function(data) {
     })
     .catch(error=>{
         console.log(error);
-        res.send({
+        return {
             success:false,
             msg: "Error en registro"
-        })
+        }
     })
 }

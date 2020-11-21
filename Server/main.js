@@ -38,13 +38,14 @@ const login = require("./routes/login")
 const catalog = require("./routes/catalog");
 const middle = require("./routes/middleware");
 const home = require("./routes/home")
+const user = require("./routes/user");
 
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.get("/catalog", middle.authHeader, middle.validSing, catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
-
+app.get("/user");
 
 
 
