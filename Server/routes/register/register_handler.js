@@ -24,7 +24,7 @@ module.exports.RegisterUser = (req,res)=>{
     const dataB=req.body;
     register.register(dataB)
     .then(data=>{
-        
+        res.send(data)
     })
     .catch(err=>{
         console.log(err);
