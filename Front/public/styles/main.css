@@ -4,6 +4,10 @@ html body {
     background-repeat: round;
 }
 
+.dnone {
+    display: none;
+}
+
 .mr-left{
     margin-left: 5%;
 }
