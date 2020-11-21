@@ -34,14 +34,15 @@ let transporter = NodeMailer.createTransport({
 });
 ///////////////////////////////////////////////////////
 const register = require("./routes/register");
-const login = require("./routes/login")
-const catalog = require("./routes/catalog")
+const login = require("./routes/login");
+const catalog = require("./routes/catalog");
+const user = require("./routes/user");
 
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.get("/catalog", catalog.ShowCatalog);
-
+app.get("/user");
 
 
 
