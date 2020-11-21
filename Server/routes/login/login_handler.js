@@ -23,6 +23,7 @@ module.exports.ValidateData =(req, res, next)=> {
 }
 
 module.exports.LogUser = (req,res)=>{
+    console.log(req.body);
     login.login(req.body.email)
     .then(async (data) => {
         console.log("log del then ==>"+data);
