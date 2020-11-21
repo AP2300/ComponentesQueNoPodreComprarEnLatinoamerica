@@ -1,6 +1,7 @@
 html body {
     background-image: url("../img/Motherboard.jpg");
     background-size: cover;
+    background-repeat: round;
 }
 
 .mr-left{
