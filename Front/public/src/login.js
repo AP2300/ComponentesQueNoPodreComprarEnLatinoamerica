@@ -18,12 +18,11 @@ function login() {
       
       axios.post('http://localhost:3000/login',jsn)
       .then(function (response) {
-            console.log("hola");
-            console.log("respuesta ==>"+response);
+            console.log(response.data);
   
             if(response.data.success == true) {
                 window.localStorage.setItem('token', response.data.token)
-                window.location.href = './app/app.html'
+                window.location.href = './../Front/index.html'
             }
             else {
             alert(response.data.msg)

@@ -49,7 +49,6 @@ module.exports.LogUser = (req,res)=>{
                         res.send({
                             success: true,
                             token:token,
-                            msg: "Bienvenido"
                         })
                     })
                     .catch(err =>{
