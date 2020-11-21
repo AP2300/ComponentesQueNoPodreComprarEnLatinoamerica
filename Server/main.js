@@ -12,6 +12,16 @@ app.set("port",process.env.PORT||3000);
 app.use(BodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(FP());
+
+app.use(BodyParser.json({'limit':'1mb'}));
+app.disable('x-powered-by');
+
+app.all('*', function(_, res, next){
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, auth, Content-Length, X-Requested-With');
+	next();
+});
 ////////////////////////////////////////////////////////////
 
 ////////////Configuracion de Nodemailer///////////////
