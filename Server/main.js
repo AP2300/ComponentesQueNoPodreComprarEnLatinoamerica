@@ -33,13 +33,15 @@ let transporter = NodeMailer.createTransport({
     }
 });
 ///////////////////////////////////////////////////////
-console.log("Entre Aqui");
-
 const register = require("./routes/register");
 const login = require("./routes/login")
+const catalog = require("./routes/catalog")
+
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
+app.get("/catalog", catalog.ShowCatalog);
+
 
 
 

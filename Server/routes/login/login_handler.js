@@ -32,13 +32,13 @@ module.exports.LogUser = (req,res)=>{
                 msg:"este usuario no existe"
             })
         }else{
-            await bcrypt.compare(req.body.pass, data.clave, (err,result)=>{
+            bcrypt.compare(req.body.clave, data.clave, (err,result)=>{
                 if(err){
                     console.log(err);
                 }else if(result){
                     const payLoad = {
-                        id: id,
-                        email: email,
+                        id: data.id,
+                        email: data.email,
                     }
                     
                     token.signToken(payLoad)
