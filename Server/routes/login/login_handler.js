@@ -1,7 +1,10 @@
 const token = require("./../../models/token")
 const login = require("./login");
+const bcrypt = require("bcryptjs");
+
 
 module.exports.ValidateData =(req, res, next)=> {
+
     if(!req.body.email){
         return res.send({
             success:false,
@@ -9,7 +12,7 @@ module.exports.ValidateData =(req, res, next)=> {
         })
     }
 
-    if(!req.body.pass){
+    if(!req.body.clave){
         return res.send({
             success:false,
             msg:"la contraseña esta vacia"
@@ -22,7 +25,7 @@ module.exports.ValidateData =(req, res, next)=> {
 module.exports.LogUser = (req,res)=>{
     login.login(req.body.email)
     .then(async (data) => {
-        console.log(data);
+        console.log("log del then ==>"+data);
         if(data == undefined){
             res.send({
                 success:false,
@@ -32,7 +35,7 @@ module.exports.LogUser = (req,res)=>{
             await bcrypt.compare(req.body.pass, data.clave, (err,result)=>{
                 if(err){
                     console.log(err);
-                }else{
+                }else if(result){
                     const payLoad = {
                         id: id,
                         email: email,

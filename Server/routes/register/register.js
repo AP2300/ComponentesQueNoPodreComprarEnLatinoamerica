@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 
 exports.register = function(data) {
-  return new Promise( (resolve, reject) => {
+  return new Promise((resolve, reject) => {
       db.query("SELECT * FROM cliente WHERE email = ?", [data.email], (error,resultS)=>{
           if(error){
               console.log(error)
@@ -24,17 +24,29 @@ exports.register = function(data) {
                   }
 
               }else{
-                console.log(data);
-                db.query(`INSERT INTO cliente SET ?`,[data], (error, resultI) => {
+                bcrypt.hash(data.clave, 8, function(err, hash) {
+                  db.query(`INSERT INTO cliente SET ?`,[{
+                    nombre: data.nombre,
+                    doc_identidad: data.doc_identidad,
+                    num_contacto: data.num_contacto,
+                    fecha_nacimiento: data.fecha_nacimiento,
+                    email: data.email,
+                    direccion:data.direccion,
+                    clave:hash
+                  }], (error, resultI) => {
                     if(error) {
-                      console.log('error en el login', error.stack);
-                      return reject('Error en el login')
+                      console.log('error en el register', error.stack);
+                      return reject({
+                        success: false,
+                        msg: "error al registrar el usuario"
+                      })
                     }
                     resolve({
                       success:true,
                       msg:"Usuario regsistrado satisfactoriamente"
                     });
                 })
+                });
               }
           }
         })
