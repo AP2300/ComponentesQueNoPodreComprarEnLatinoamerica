@@ -35,6 +35,7 @@ function register() {
   
         if(response.data.success == true) {
           alert(response.data.msg);
+          window.location.href = "/Front/login.html";
         }
         else {
           alert(response.data.msg)
