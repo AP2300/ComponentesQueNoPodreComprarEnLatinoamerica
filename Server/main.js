@@ -43,7 +43,7 @@ const user = require("./routes/user");
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
-app.get("/catalog", middle.authHeader, middle.validSing, catalog.ShowCatalog);
+app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", user.GetUserData);
 
