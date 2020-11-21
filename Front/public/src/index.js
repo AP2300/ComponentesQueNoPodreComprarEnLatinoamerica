@@ -17,4 +17,9 @@ if(!token){
   <li class="nav-item" id="registranav">
       <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
   </li>`
+}else{
+    document.getElementById("insert").innerHTML=""
+    document.getElementById("insert").innerHTML=`<li class="nav-item dnone" id="usernav">
+    <a class="nav-link hover" href="#" id="username"><i class="fas fa-user"></i> Registrarse</a>
+</li>`
 }
