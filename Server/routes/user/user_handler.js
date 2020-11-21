@@ -7,10 +7,19 @@ module.exports.GetUserData = async (req, res)=>{
 
     user.user(decode.id)
     .then(data =>{
-       return res.send({
-            success:true,
-            data:data
-        })
+        if(data==null){
+            return res.send({
+                success:true,
+                data:data,
+                log:false
+            })
+        }else{
+            return res.send({
+                success:true,
+                data:data,
+                log:true
+            })
+        }
     })
     .catch(err =>{
         console.log(err);
