@@ -2,7 +2,7 @@ function validSession() {
     const token = window.localStorage.getItem('token')
     
     if(token == null) {
-      window.location.href = '../login.html'
+    //   window.location.href = './login.html'
     }
     else {
       axios.get('http://localhost:3000/user', {
@@ -20,7 +20,7 @@ function validSession() {
 
 function getSession(){
     const token = window.localStorage.getItem('token')
-    if(window.location.href.split("/")[4]!==""||window.location.href.split("/")[4]!=="catalog.html"
+    if(window.location.href.split("/")[4]!=="index.html"||window.location.href.split("/")[4]!=="catalog.html"
     ||window.location.href.split("/")[4]!=="product.html"){
         validSession()
     }
