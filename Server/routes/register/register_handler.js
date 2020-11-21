@@ -4,14 +4,14 @@ const register = require("./register");
 module.exports.ValidateData =(req, res, next)=> {
     const dataB=req.body;
     if(!dataB.email){
-        res.send({
+        return res.send({
             success:false,
             msg:"el email se encuentra vacio"
         })
     }
 
     if(!dataB.clave){
-        res.send({
+        return res.send({
             success:false,
             msg:"la contraseña esta vacia"
         })
