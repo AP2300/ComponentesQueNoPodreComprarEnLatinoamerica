@@ -12,17 +12,25 @@ function validSession() {
             if(response.data.log===true){
                 document.getElementById("username").innerHTML="<i class='fas fa-user'></i>  "+response.data.data.email;
             }
+            if(window.location.href.split("/")[4]==="cart.html"){
+                var correo = response.data.data.email;
+                giveEmail(response.data.data.email);
+            }
         })
         .catch(function(err) {
             console.log(err)
         })
     
-        }
+    }
+}
+
+function giveEmail(email){
+    correo = email;
 }
 
 function getSession(){
-    const token = window.localStorage.getItem('token')
-    if(window.location.href.split("/")[4]==="buy.html"&&token==null||window.location.href.split("/")[4]==="cart.html"&&token==null||token!==null){
+    const token = window.localStorage.getItem('token');
+    if(window.location.href.split("/")[4]==="buy.html"&&token!==null||window.location.href.split("/")[4]==="cart.html"&&token==null||token!==null){
         validSession()
     }else if(window.location.href.split("/")[4]==="login.html"&&token!=null||window.location.href.split("/")[4]==="register.html"&&token!=null){
       window.location.href = './index.html'
