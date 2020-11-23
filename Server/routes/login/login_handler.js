@@ -40,6 +40,7 @@ module.exports.LogUser = (req,res)=>{
                     const payLoad = {
                         id: data.id,
                         email: data.email,
+                        admin:false
                     }
                     
                     token.signToken(payLoad)
