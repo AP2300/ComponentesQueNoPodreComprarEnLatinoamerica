@@ -1,3 +1,5 @@
+var correo = "";
+
 function validSession() {
     console.log("entre a valid session");
     const token = window.localStorage.getItem('token')
@@ -10,11 +12,8 @@ function validSession() {
         })
         .then(function (response){
             if(response.data.log===true){
+                correo = response.data.data.email;
                 document.getElementById("username").innerHTML="<i class='fas fa-user'></i>  "+response.data.data.email;
-            }
-            if(window.location.href.split("/")[4]==="cart.html"){
-                var correo = response.data.data.email;
-                giveEmail(response.data.data.email);
             }
         })
         .catch(function(err) {
@@ -22,10 +21,6 @@ function validSession() {
         })
     
     }
-}
-
-function giveEmail(email){
-    correo = email;
 }
 
 function getSession(){
