@@ -11,13 +11,15 @@ module.exports.GetUserData = async (req, res)=>{
             return res.send({
                 success:true,
                 data:data,
-                log:false
+                log:false,
+                admin: decode.admin
             })
         }else{
             return res.send({
                 success:true,
                 data:data,
-                log:true
+                log:true,
+                admin: decode.admin
             })
         }
     })

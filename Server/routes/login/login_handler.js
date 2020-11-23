@@ -24,6 +24,12 @@ module.exports.ValidateData =(req, res, next)=> {
 
 module.exports.LogUser = (req,res)=>{
     console.log(req.body);
+
+    if(req.body.email=="jesusenrique-r-p@hotmail.com") var admin = true;
+    else var admin = false
+
+    console.log(admin);
+
     login.login(req.body.email)
     .then(async (data) => {
         console.log("log del then ==>"+data);
@@ -40,7 +46,7 @@ module.exports.LogUser = (req,res)=>{
                     const payLoad = {
                         id: data.id,
                         email: data.email,
-                        admin:false
+                        admin: admin
                     }
                     
                     token.signToken(payLoad)
