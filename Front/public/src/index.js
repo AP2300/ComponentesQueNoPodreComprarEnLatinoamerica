@@ -8,6 +8,7 @@ function LoadData (){
     })
 }
 
+
 const token = window.localStorage.getItem('token')
 
 if(!token){
@@ -19,7 +20,21 @@ if(!token){
   </li>`
 }else{
     document.getElementById("insert").innerHTML=""
-    document.getElementById("insert").innerHTML=`<li class="nav-item" id="usernav">
-    <a class="nav-link hover" href="#" id="username"><i class="fas fa-user"></i> Registrarse</a>
-</li>`
+    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
+    <a href="/UserCart/<%=Sesion.id%>"><i class="fas fa-shopping-cart"></i></a>`
+
+    if(isAdmin()) {
+        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
+        <a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
+    } else {
+        var options = `<a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
+    }
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: "click",
+            html: true,
+            content: options
+        })
+    })
 }

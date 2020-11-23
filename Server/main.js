@@ -35,6 +35,7 @@ let transporter = NodeMailer.createTransport({
 ///////////////////////////////////////////////////////
 const register = require("./routes/register");
 const login = require("./routes/login")
+const cart = require("./routes/cart")
 const catalog = require("./routes/catalog");
 const middle = require("./routes/middleware");
 const home = require("./routes/home")
@@ -44,6 +45,7 @@ const product = require("./routes/product");
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
+app.post("/cart", cart.addProduct);
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", user.GetUserData);
