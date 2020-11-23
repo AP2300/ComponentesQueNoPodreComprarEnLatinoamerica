@@ -571,3 +571,33 @@ html body div.alert.DisplayType{
     z-index: 1000000;
     margin-bottom: 0;
 }
+
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
+
+.imgProducto{
+    height: 90vh;
+    width: 100%;
+}
+
+.containerProduct{
+    text-align: center;
+    position: absolute;
+    top: 65%;
+    left: .5%;
+    right: 1%;
+}
+
+html body div div.jumbotron.JProducto{
+    max-width: 100%;
+    backdrop-filter: blur(10px);
+    background-color: #e9ecefe3;
+    box-shadow: rgba(0, 0, 0, 0.74) 1px 1px 10px;
+}
+
+.scroll{
+    max-height: 475px;
+    overflow-y: scroll;
+}
+ .size{
+    margin-top: 40%;
+ }
