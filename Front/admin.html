@@ -185,23 +185,26 @@
                                 <label for="inputStock">Cantidad en stock</label>
                                 <input type="number" class="form-control" id="inputStock" required name="price" min="1" max="9999999999999">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="inputType">Tipo</label>
-                                <select onselect="getCategoryInfo(this)" class="form-control" id="inputType" required name="type">
+                                <select onchange="getCategoryInfo(this)" class="form-control" id="inputType" required name="type">
                                     <option selected disabled value="">Elegir...</option>
-                                    <option>Tarjeta de Video</option>
-                                    <option>Tarjeta Madre</option>
-                                    <option>Memoria RAM</option>
-                                    <option>Almacenamiento</option>
-                                    <option>Case</option>
-                                    <option>Fuente de Almientación</option>
-                                    <option>CPU</option>
+                                    <option value="tarjeta_video">Tarjeta de Video</option>
+                                    <option value="motherboard">Tarjeta Madre</option>
+                                    <option value="ram">Memoria RAM</option>
+                                    <option value="almacenamiento">Almacenamiento</option>
+                                    <option value="case">Case</option>
+                                    <option value="fuente_alimentacion">Fuente de Almientación</option>
+                                    <option value="cpu">CPU</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="input">Marca</label>
-                                <input type="number" class="form-control" id="inputStock" required name="price" min="1" max="9999999999999">
+                            <div class="form-group col-md-6">
+                                <label for="inputMarca">Marca</label>
+                                <input type="text" class="form-control" id="inputMarca" required name="marca">
                             </div>
+                            <span id="tipo">
+                                
+                            </span>
                         </div>
                         <div class="form-row">
                             <label for="CustomFile" class="mx-auto">Agregar Imagen</label>
