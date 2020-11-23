@@ -19,7 +19,7 @@ if(!token){
   </li>`
 }else{
     document.getElementById("insert").innerHTML=""
-    document.getElementById("insert").innerHTML=`<li class="nav-item dnone" id="usernav">
+    document.getElementById("insert").innerHTML=`<li class="nav-item" id="usernav">
     <a class="nav-link hover" href="#" id="username"><i class="fas fa-user"></i> Registrarse</a>
 </li>`
 }
