@@ -4,7 +4,6 @@ function ShowProduct(){
     let id = window.location.search
     let urlId = new URLSearchParams(id)
     let Id = urlId.get("id")
-    console.log(Id)
     axios.get("http://localhost:3000/product", {params:{ id:Id}})
     .then(res => {
         let data=res.data.data.advanced;
@@ -31,14 +30,17 @@ function ShowProduct(){
                 <h1>${res.data.data.basic.nombre}</h1>
                 <hr>
                 <div class="row scroll">
-                
                     ${printData}
                 </div>
                 <hr>
+                <label>cantidad:</label>
+                <input type="number" class="cantidadinput" max='${res.data.data.basic.cantidad_stock}' min="1" value="1" id= "inputcantidad">
+                <button type="button" class="btn btn-dark"><i class="fas fa-plus"></i> Agregar al carrito</button>
             </div>
         </div>
         `
         f=0;
+        document.body.style.backgroundColor= "whitesmoke";
     })
     .catch(err => {
         console.error(err); 
@@ -74,4 +76,18 @@ function productType(data) {
     }
 
     return arr;
+}
+
+function AddToCart() {
+    let id = window.location.search
+    let urlId = new URLSearchParams(id)
+    let Id = urlId.get("id")
+    let cantidad = document.getElementById("inputcantidad").value;
+    axios.post("http://localhost:3000/addcart",{body:{correo:window.correo, ID:Number(Id), cantidad:cantidad}})
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.error(err); 
+    })
 }

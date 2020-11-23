@@ -599,5 +599,15 @@ html body div div.jumbotron.JProducto{
     overflow-y: scroll;
 }
  .sizef{
-    margin-top: 40%;
+    margin-top: 25%;
+ }
+
+ .cantidadinput{
+     max-width: 100px;
+     display: block;
+     border-radius: 1em;
+     margin: 0 auto;
+     height: 3.6vh;
+     border: rgba(128, 128, 128, 0.801) solid 1px;
+     margin-bottom: 1vh;
  }
