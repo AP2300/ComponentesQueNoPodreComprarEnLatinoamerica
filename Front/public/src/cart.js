@@ -44,6 +44,7 @@ function ShowCart(){
                 <td class="border-0 align-middle"><a href="#" class="text-dark" onclick="SubmitDelete('DelForm${o.data.id}')"><i class="fa fa-trash"></i></a></td>
             </tr>
             `
+            document.getElementById("load").style.display = "none"
         }
 
         document.getElementById("cartList").innerHTML = html;

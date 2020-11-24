@@ -41,7 +41,7 @@ function ShowProduct(){
         </div>
         `
         f=0;
-        document.body.style.backgroundColor= "whitesmoke";
+        document.getElementById("body").style.backgroundImage= "none"
     })
     .catch(err => {
         console.error(err); 
