@@ -1,5 +1,4 @@
 const db = require('./../../connections/Dbconnection');
-const bcrypt = require("bcryptjs");
 
 exports.user = function(id) {
     return new Promise( (resolve, reject) => {

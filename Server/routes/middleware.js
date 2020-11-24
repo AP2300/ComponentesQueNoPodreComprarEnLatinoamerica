@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const _sign = "28838772yuuuuyuyuuuu";
 
 exports.authHeader = function(req, res, next) {
+  console.log("adsadasdasd===>",req.headers["auth"]);
   const token = req.headers['auth'];
 
   if(!token) {
