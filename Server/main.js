@@ -49,8 +49,8 @@ app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", user.GetUserData);
-app.get("/cart", cart.Showcart);
-app.get("/product", product.ShowProduct)
+app.get("/cart", middle.authHeader, middle.validSing, cart.Showcart);
+app.get("/product", middle.authHeader, middle.validSing, product.ShowProduct)
 
 
 
