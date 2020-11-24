@@ -82,3 +82,4 @@ if(!token){
 function redirect(data){
     window.location.href="product.html?id="+data;
 }
+
