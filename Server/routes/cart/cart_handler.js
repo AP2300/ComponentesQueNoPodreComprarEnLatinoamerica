@@ -2,7 +2,32 @@ const cart = require("./cart");
 
 module.exports.addProduct = (req,res)=>{
     console.log(req.body)
-    cart.cart(req)
+    cart.addproduct(req)
+    .then(async (data) => {
+        if(data == undefined){
+            res.send({
+                success:false,
+                msg:"No se Agrego el producto"
+            })
+        }else{
+            res.send({
+                data:data,
+                success:true,
+                msg:"El producto fue agregado satisfactoriamente"
+            }) 
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+        res.send({
+            success:false,
+            msg: "Error Fatal al insertar el Producto"
+        })
+    })
+}
+
+module.exports.Showcart = (req,res)=>{
+    cart.Showcart(req.query.id)
     .then(async (data) => {
         if(data == undefined){
             res.send({

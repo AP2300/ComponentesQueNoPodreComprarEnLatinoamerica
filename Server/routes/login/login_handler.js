@@ -2,7 +2,6 @@ const token = require("./../../models/token")
 const login = require("./login");
 const bcrypt = require("bcryptjs");
 
-
 module.exports.ValidateData =(req, res, next)=> {
 
     if(!req.body.email){

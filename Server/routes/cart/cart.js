@@ -1,6 +1,6 @@
 const DB = require('../../connections/Dbconnection');
 
-exports.cart = function(req) {
+exports.addproduct = function(req) {
   return new Promise( (resolve, reject) => {
     let key;
     
@@ -41,5 +41,38 @@ exports.cart = function(req) {
         }
     })
   })
+}
+
+exports.Showcart = (id)=>{
+    let CartInfo = [];
+
+    return new Promise( (resolve, reject) => {
+        DB.query("SELECT id FROM carrito WHERE id_cliente = ?",[id], async (err, res)=>{
+            if(err){ 
+                console.log('error al mostrar el carrito -->', err.stack);
+                return reject('Error al mostrar el carrito');
+            }else{
+                DB.query("SELECT producto_id,cantidad FROM carrito_has_producto WHERE carrito_id = ?",[res[0].id], async (err, results)=>{
+                    if(results.length>0){
+                        for (let i in results) {
+                            let query = DB.query("SELECT * FROM producto WHERE id = ?", [results[i].producto_id])
+                            query.on("result",async (row)=> {
+                                CartInfo[i] = {data:row, cantidad:results[i].cantidad, id:results[i].producto_id};
+                            })
+                            query.on("end",()=>{
+                                if(parseInt(i) == (results.length-1)){
+                                    console.log("aqui fue")
+                                    return resolve(CartInfo);
+                                }
+                            })
+                            console.log(i);
+                        }
+                    }else{
+                        return resolve('No hay Productos en el carrito');
+                    }
+                })
+            }
+        })
+    })
 }
 

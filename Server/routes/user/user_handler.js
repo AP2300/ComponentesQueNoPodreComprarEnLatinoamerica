@@ -11,6 +11,7 @@ module.exports.GetUserData = async (req, res)=>{
             return res.send({
                 success:true,
                 data:data,
+                id:decode.id,
                 log:false,
                 admin: decode.admin
             })
@@ -18,6 +19,7 @@ module.exports.GetUserData = async (req, res)=>{
             return res.send({
                 success:true,
                 data:data,
+                id:decode.id,
                 log:true,
                 admin: decode.admin
             })

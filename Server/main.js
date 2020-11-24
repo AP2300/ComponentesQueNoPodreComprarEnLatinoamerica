@@ -45,10 +45,11 @@ const product = require("./routes/product");
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
-app.post("/cart", cart.addProduct);
+app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", user.GetUserData);
+app.get("/cart", cart.Showcart);
 app.get("/product", product.ShowProduct)
 
 

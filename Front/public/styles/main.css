@@ -274,11 +274,6 @@ html body p{
     margin:0 0;
 }
 
-.scroll{
-    overflow-y: scroll;
-    max-height: 430px;
-}
-
 ::-webkit-scrollbar {
     width: 7px;
 }

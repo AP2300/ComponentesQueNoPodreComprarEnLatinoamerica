@@ -1,4 +1,5 @@
 var correo = "";
+var idUser = "";
 
 function validSession() {
     console.log("entre a valid session");
@@ -13,6 +14,7 @@ function validSession() {
         .then(function (response){
             if(response.data.log===true){
                 correo = response.data.data.email;
+                idUser = response.data.id;
                 document.getElementById("username").innerHTML="<i class='fas fa-user'></i>  "+response.data.data.email;
             }
         })
@@ -30,4 +32,8 @@ function getSession(){
     }else if(window.location.href.split("/")[4]==="login.html"&&token!=null||window.location.href.split("/")[4]==="register.html"&&token!=null){
       window.location.href = './index.html'
     }
+}
+
+function goCart(){
+    window.location.href = './cart.html?id=' + idUser;
 }
