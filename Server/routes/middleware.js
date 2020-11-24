@@ -10,7 +10,6 @@ exports.authHeader = function(req, res, next) {
       msg: 'No posees un header'
     })
   }
-
   next();
 }
 

@@ -8,6 +8,7 @@ function validSession() {
     if(token == null) {
       window.location.href = './login.html'
     }else{
+        console.log(1234);
         axios.get('http://localhost:3000/user', {
             'headers': {'auth':token}
         })
