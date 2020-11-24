@@ -14,7 +14,7 @@ function ShowCart(){
     let urlId = new URLSearchParams(id)
     let Id = urlId.get("id")
     console.log(Id)
-    axios.get("http://localhost:3000/cart", {params:{ id:Id}})
+    axios.get("http://localhost:3000/cart", {params:{ id:Id},headers: {'auth':token}})
     .then(res => {
         console.log(res.data.data)
         var html = "";

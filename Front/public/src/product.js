@@ -85,7 +85,7 @@ function AddToCart() {
     let Id = urlId.get("id")
     console.log(Id)
     let cantidad = document.getElementById("inputcantidad").value;
-    axios.post("http://localhost:3000/addcart",{correo:window.correo, ID:Number(Id), cantidad:cantidad, 'headers': {'auth':token}})
+    axios.post("http://localhost:3000/addcart",{correo:window.correo, ID:Number(Id), cantidad:cantidad}, {headers: {'auth':token}})
     .then(res => {
         console.log(res)
     })
