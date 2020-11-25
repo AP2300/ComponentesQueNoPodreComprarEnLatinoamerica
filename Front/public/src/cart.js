@@ -14,7 +14,7 @@ function ShowCart(){
     let urlId = new URLSearchParams(id)
     let Id = urlId.get("id")
     console.log(Id)
-    axios.get("http://localhost:3000/cart", {params:{ id:Id}})
+    axios.get("http://localhost:3000/cart", {params:{ id:Id},headers: {'auth':token}})
     .then(res => {
         console.log(res.data.data)
         var html = "";
@@ -44,6 +44,7 @@ function ShowCart(){
                 <td class="border-0 align-middle"><a href="#" class="text-dark" onclick="SubmitDelete('DelForm${o.data.id}')"><i class="fa fa-trash"></i></a></td>
             </tr>
             `
+            document.getElementById("load").style.display = "none"
         }
 
         document.getElementById("cartList").innerHTML = html;

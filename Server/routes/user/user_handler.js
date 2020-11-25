@@ -2,6 +2,7 @@ const _token = require("./../../models/token")
 const user = require("./user");
 
 module.exports.GetUserData = async (req, res)=>{
+
     const token = req.headers["auth"];
     const decode = await _token.verifyToken(token);
 

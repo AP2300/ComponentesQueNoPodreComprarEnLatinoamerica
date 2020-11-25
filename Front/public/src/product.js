@@ -41,7 +41,7 @@ function ShowProduct(){
         </div>
         `
         f=0;
-        document.body.style.backgroundColor= "whitesmoke";
+        document.getElementById("body").style.backgroundImage= "none"
     })
     .catch(err => {
         console.error(err); 
@@ -85,11 +85,41 @@ function AddToCart() {
     let Id = urlId.get("id")
     console.log(Id)
     let cantidad = document.getElementById("inputcantidad").value;
-    axios.post("http://localhost:3000/addcart",{correo:window.correo, ID:Number(Id), cantidad:cantidad, 'headers': {'auth':token}})
+    axios.post("http://localhost:3000/addcart",{correo:window.correo, ID:Number(Id), cantidad:cantidad}, {headers: {'auth':token}})
     .then(res => {
         console.log(res)
     })
     .catch(err => {
         console.error(err); 
+    })
+}
+
+const token = window.localStorage.getItem('token')
+
+if(!token){
+    document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
+    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
+  </li>
+  <li class="nav-item" id="registranav">
+      <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
+  </li>`
+}else{
+    document.getElementById("insert").innerHTML=""
+    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
+    <a href="/UserCart/<%=Sesion.id%>"><i class="fas fa-shopping-cart"></i></a>`
+
+    if(isAdmin()) {
+        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
+        <a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
+    } else {
+        var options = `<a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
+    }
+    
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: "click",
+            html: true,
+            content: options
+        })
     })
 }
