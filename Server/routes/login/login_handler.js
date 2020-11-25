@@ -64,6 +64,12 @@ module.exports.LogUser = (req,res)=>{
                             msg: "Error en el login"
                         })
                     })
+                }else{
+                    console.error("La Clave es Incorrecta")
+                    res.send({
+                        success: false,
+                        msg: "La clave es Incorrecta"
+                    })
                 }
             })
         }

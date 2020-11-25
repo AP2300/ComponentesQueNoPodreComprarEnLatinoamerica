@@ -62,7 +62,6 @@ exports.Showcart = (id)=>{
                             })
                             query.on("end",()=>{
                                 if(parseInt(i) == (results.length-1)){
-                                    console.log("aqui fue")
                                     return resolve(CartInfo);
                                 }
                             })
