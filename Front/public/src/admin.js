@@ -1,3 +1,5 @@
+
+
 function getCategoryInfo(obj) {
     var value = obj.value;
 
