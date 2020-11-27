@@ -6,8 +6,9 @@ function register() {
     const direccion = document.getElementById("direccion").value;
     const email = document.getElementById("email").value;
     const clave = document.getElementById("clave").value;
+    const rol = document.getElementById("rol").value;
+    console.log(rol);
   
-    console.log(nombre, doc_identidad, num_contacto, fecha_nacimiento, direccion, email, clave);
     fechaN = new Date(fecha_nacimiento);
     fechaA = new Date;
 
@@ -44,7 +45,9 @@ function register() {
     else if(!clave) {
       alert("La clave está vacía")
     }
-    else {
+    else if(!rol){
+      alert("No se indico un rol")
+    }else {
       const jsn = {
         "nombre":nombre,
         "doc_identidad":doc_identidad,
@@ -52,7 +55,8 @@ function register() {
         "fecha_nacimiento":fecha_nacimiento,
         "direccion":direccion,
         "email":email,
-        "clave":clave
+        "clave":clave,
+        "rol": rol
       }
 
       axios.post('http://localhost:3000/register', jsn)

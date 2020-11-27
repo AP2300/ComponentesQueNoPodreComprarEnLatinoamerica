@@ -157,7 +157,14 @@
                         <input type="password" class="form-control" id="clave" name="data[clave]"
                             required>
                     </div>
-
+                    <div class="form-group">
+                        <label for="clave">Rol</label>
+                        <select id="rol" class="custom-select">
+                            <option selected>Elegir</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Cliente</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary" onclick="register()">Registrar</button>
                     </div>

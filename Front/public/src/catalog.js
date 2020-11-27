@@ -1,9 +1,11 @@
 var productos;
 var filter="";
+const token = window.localStorage.getItem('token')
 
 function Loadcatalog(){
     axios.get("http://localhost:3000/catalog")
     .then(res => {
+        console.log(res.data);
         productos = res.data.data;
         buscar(productos, filter);
     })
@@ -28,7 +30,7 @@ function buscar(Data, filter){
                         <img src="${producto.foto}" class="card-img-top" >
                         <div class="card-body">
                             <h5 class="card-title">${producto.nombre}</h5>
-                            <p class="card-text">Tipo de Medicamento: ${producto.tipo}</p>
+                            <p class="card-text">Categoria: ${producto.categoria}</p>
                         </div>
                         <div class="card-footer" id="catalogPage">
                             <small class="text-muted">Precio: ${producto.precio}$</small>
@@ -49,7 +51,7 @@ $("ol").on("click","li", function (){
     buscar(productos,filter);
 })
 
-const token = window.localStorage.getItem('token')
+
 
 if(!token){
     document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">

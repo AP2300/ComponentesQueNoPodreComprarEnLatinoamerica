@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 
 exports.register = function(data) {
   return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM cliente WHERE email = ?", [data.email], (error,resultS)=>{
+      db.query("SELECT * FROM usuarios WHERE email = ?", [data.email], (error,resultS)=>{
           if(error){
               console.log(error)
               resolve( {
@@ -25,14 +25,16 @@ exports.register = function(data) {
 
               }else{
                 bcrypt.hash(data.clave, 8, function(err, hash) {
-                  db.query(`INSERT INTO cliente SET ?`,[{
+                  console.log(data.rol);
+                  db.query(`INSERT INTO usuarios SET ?`,[{
                     nombre: data.nombre,
                     doc_identidad: data.doc_identidad,
                     num_contacto: data.num_contacto,
                     fecha_nacimiento: data.fecha_nacimiento,
                     email: data.email,
                     direccion:data.direccion,
-                    clave:hash
+                    clave:hash,
+                    roles_id:data.rol
                   }], (error, resultI) => {
                     if(error) {
                       console.log('error en el register', error.stack);
@@ -40,12 +42,20 @@ exports.register = function(data) {
                         success: false,
                         msg: "error al registrar el usuario"
                       })
+                    }else{
+                      db.query("INSERT INTO carrito SET ?", [{id_usuario:resultI.insertId}], (err, resultLI)=>{
+                        if(err){
+                          console.log(err);
+                          reject("error al crear el carrito")
+                        }else{
+                          resolve({
+                            success:true,
+                            msg:"Usuario regsistrado satisfactoriamente"
+                          });
+                        }
+                      })
                     }
-                    resolve({
-                      success:true,
-                      msg:"Usuario regsistrado satisfactoriamente"
-                    });
-                })
+                  })
                 });
               }
           }
