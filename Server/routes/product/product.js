@@ -13,3 +13,22 @@ exports.product = (id)=> {
     })
   })
 }
+
+exports.deleteProduct = (id)=> {
+  return new Promise( (resolve, reject) => {
+    let msg = "";
+    db.query(`DELETE FROM producto WHERE id = ?`,[Number(id)], (error, result) => {
+      if(error) {
+        console.log('error al eliminar el producto -->', error.stack);
+        return reject('Error al eliminar el producto')
+      }else{
+        if(result.affectedRows > 0){
+          msg = "El Producto fue eliminado de manera exitosa"
+        } else {
+          msg = "No existe producto que eliminar o ya fue eliminado"
+        }
+        return resolve(msg)
+      }
+    })
+  })
+}

@@ -1,7 +1,6 @@
 const cart = require("./cart");
 
 module.exports.addProduct = (req,res)=>{
-    console.log(req.body)
     cart.addproduct(req)
     .then(async (data) => {
         if(data == undefined){

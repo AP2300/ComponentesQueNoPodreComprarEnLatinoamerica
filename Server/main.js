@@ -52,6 +52,8 @@ app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
 app.get("/cart", middle.authHeader, middle.validSing, cart.Showcart);
 app.get("/product", product.ShowProduct)
+app.post("/deleteproduct", middle.authHeader, middle.validSing, product.DeleteProduct)
+
 
 
 
