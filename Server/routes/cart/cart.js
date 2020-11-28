@@ -1,4 +1,5 @@
 const DB = require('../../connections/Dbconnection');
+let idCart;
 
 exports.addproduct = function(req) {
   return new Promise( (resolve, reject) => {
@@ -10,14 +11,12 @@ exports.addproduct = function(req) {
           return reject('Error al Agregar el Producto');
         }else{
             if(results.length<1){
-                console.log("====>",req.body.id);
                 DB.query("SELECT id FROM carrito WHERE id_usuario= ?", [req.body.id], (err,results1)=>{
                     if(err){
 					  console.log('error al solicitar el id del usuario -->', err.stack);
 					  return reject('Error al Solicitar id_Usuario');
                     } 
 					else{
-                        console.log(results1);
 						DB.query("INSERT INTO carrito_has_producto SET ?",{carrito_id:results1[0].id,producto_id:req.body.ID,cantidad:Number(req.body.cantidad)}, (err, res)=>{
 							if(err){
 								console.log('error al insertar el producto en el carrito -->', err.stack);
@@ -49,11 +48,12 @@ exports.Showcart = (id)=>{
     let CartInfo = [];
 
     return new Promise( (resolve, reject) => {
-        DB.query("SELECT id FROM carrito WHERE id_cliente = ?",[id], async (err, res)=>{
+        DB.query("SELECT id FROM carrito WHERE id_usuario = ?",[id], async (err, res)=>{
             if(err){ 
                 console.log('error al mostrar el carrito -->', err.stack);
                 return reject('Error al mostrar el carrito');
             }else{
+                idCart=res[0].id
                 DB.query("SELECT producto_id,cantidad FROM carrito_has_producto WHERE carrito_id = ?",[res[0].id], async (err, results)=>{
                     if(results.length>0){
                         for (let i in results) {
@@ -66,7 +66,6 @@ exports.Showcart = (id)=>{
                                     return resolve(CartInfo);
                                 }
                             })
-                            console.log(i);
                         }
                     }else{
                         return resolve('No hay Productos en el carrito');
@@ -77,3 +76,24 @@ exports.Showcart = (id)=>{
     })
 }
 
+exports.UpdateCart = (qtty, id)=>{
+    return new Promise((resolve,reject)=>{
+        console.log(id);
+        DB.query(`SELECT cantidad FROM carrito_has_producto WHERE carrito_id = ? AND producto_id = ?`,[idCart,id], (err, result)=>{
+            if(err){
+                console.log(err);
+                reject("error al consultar el carrito")
+            }else{
+                DB.query(`UPDATE carrito_has_producto SET cantidad = ? 
+                WHERE producto_id = ? AND carrito_id = ?`,[qtty,id,idCart], (err, result)=>{
+                    if(err){
+                        console.log(err);
+                        reject("error al actualizar el carrito")
+                    }else{
+                        resolve("carrito actualizado correctamente")
+                    }
+                })
+            }
+        })
+    })
+}

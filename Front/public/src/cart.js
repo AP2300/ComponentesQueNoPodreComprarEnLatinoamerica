@@ -16,7 +16,7 @@ function ShowCart(){
     console.log(Id)
     axios.get("http://localhost:3000/cart", {params:{ id:Id},headers: {'auth':token}})
     .then(res => {
-        console.log(res.data.data)
+        console.log(res)
         var html = "";
 
         for(let o of res.data.data){
@@ -32,7 +32,7 @@ function ShowCart(){
                 </th>
                 <td class="border-0 align-middle"><strong>$${o.data.precio}</strong></td>
                 <td class="border-0 align-middle"> <form action="/UpdateCart" method="POST" class="addForm" id="CartForm${o.data.id}">
-                    <input type="number" class="addInput" value="${o.cantidad}" name="cantidad" id="Qtty${o.data.id}" min="1" onchange="SubmitCartForm('CartForm${o.data.id}')">
+                    <input type="number" class="addInput" value="${o.cantidad}" name="cantidad" id="Qtty${o.data.id}" min="1" onchange="SubmitCartForm('Qtty${o.data.id}',${o.data.id})">
                     <input type="number" value="${o.data.id}" name="id" class="invisible">
                     <input type="number" value="${o.data.id}" class="invisible" name="idProducto">
                     <input type="number" value="${String(window.location.search).charAt(4)}" name="UsrId" class="invisible">
@@ -48,6 +48,17 @@ function ShowCart(){
         }
 
         document.getElementById("cartList").innerHTML = html;
+    })
+    .catch(err => {
+        console.error(err); 
+    })
+}
+
+function SubmitCartForm (idqtty,idProducto){
+    let qtty = document.getElementById(`${idqtty}`).value;
+    axios.post("http://localhost:3000/updatecart",{cantidad:qtty, idProducto:idProducto}, {headers: {'auth':token}})
+    .then(res => {
+        console.log(res)
     })
     .catch(err => {
         console.error(err); 
