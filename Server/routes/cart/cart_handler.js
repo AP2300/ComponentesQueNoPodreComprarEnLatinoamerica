@@ -4,6 +4,7 @@ module.exports.addProduct = (req,res)=>{
     console.log(req.body)
     cart.addproduct(req)
     .then(async (data) => {
+        console.log(data);
         if(data == undefined){
             res.send({
                 success:false,
