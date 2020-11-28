@@ -144,8 +144,8 @@
                     </a>
                 </div>
                 <div class="col-sm">
-                    <a class="card text-center" id="Distribution" data-toggle="collapse" aria-expanded="false"
-                        aria-controls="DisPanel" href="#DisPanel">
+                    <a class="card text-center" id="Ventas" data-toggle="collapse" aria-expanded="false"
+                        aria-controls="VentasPanel" href="#VentasPanel">
                         <div class="card-header">
                            Historial
                         </div>
@@ -264,7 +264,7 @@
 
                     </div>
 
-                <div class="collapse multi-collapse hideMeBox" id="DisPanel">
+                <div class="collapse multi-collapse hideMeBox" id="VentasPanel">
 
                         <%let html = `<span class="btn btns btn-success mr-2" onclick='cambiarEstatus(${el.id})' type="" id="botonSuccess"><i class="fas fa-check"></i></span>`%>
                         <%let disabled = (el.estado == 0) ? html : '' %>

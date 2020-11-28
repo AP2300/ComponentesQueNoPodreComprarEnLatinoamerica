@@ -1,4 +1,24 @@
+$(document).ready(function(){
+    $("#UsersPanel").collapse("hide")
+    $("#ProductsPanel").collapse("hide")
+    $("#VentasPanel").collapse("hide")
 
+    $("#Productos").click(function () { 
+        $("#UsersPanel").collapse("hide")
+        $("#VentasPanel").collapse("hide")
+        document.getElementById("textSelection").innerHTML="Administre los productos";
+    });
+    $("#Users").click(function () { 
+        $("#ProductsPanel").collapse("hide")
+        $("#VentasPanel").collapse("hide")
+        document.getElementById("textSelection").innerHTML="Administre los usuarios";
+    });
+    $("#Ventas").click(function () { 
+        $("#UsersPanel").collapse("hide")
+        $("#ProductsPanel").collapse("hide")
+        document.getElementById("textSelection").innerHTML="Visualice las ventas";
+    });
+}); 
 
 function getCategoryInfo(obj) {
     var value = obj.value;
