@@ -21,7 +21,7 @@ function buscar(Data, filter){
     let html = "";    
 
     for(let producto of Data){
-        if(reg.test(producto.nombre)&&producto.tipo===filter&&producto.cantidad_stock>0||reg.test(producto.nombre)&&filter==="Todos"&&producto.cantidad_stock>0
+        if(reg.test(producto.nombre)&&producto.categoria===filter&&producto.cantidad_stock>0||reg.test(producto.nombre)&&filter==="Todos"&&producto.cantidad_stock>0
         ||reg.test(producto.nombre)&&filter===""&&producto.cantidad_stock>0){
             html+=`
             <div class="col mb-4">
@@ -45,6 +45,7 @@ function buscar(Data, filter){
 
 $("ol").on("click","li", function (){
     var cat=$(this).text();
+    console.log(cat);
     filter=cat;
     $(".breadcrumb-item").removeClass("activo");
     $(this).toggleClass("activo");
@@ -63,7 +64,7 @@ if(!token){
 }else{
     document.getElementById("insert").innerHTML=""
     document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-    <a href="/UserCart/<%=Sesion.id%>"><i class="fas fa-shopping-cart"></i></a>`
+    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
 
     if(isAdmin()) {
         var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>

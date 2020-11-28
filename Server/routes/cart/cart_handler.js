@@ -29,6 +29,7 @@ module.exports.addProduct = (req,res)=>{
 module.exports.Showcart = (req,res)=>{
     cart.Showcart(req.query.id)
     .then(async (data) => {
+        console.log(data);
         if(data == undefined){
             res.send({
                 success:false,
@@ -47,6 +48,17 @@ module.exports.Showcart = (req,res)=>{
         res.send({
             success:false,
             msg: "Error Fatal al cargar el Producto"
+        })
+    })
+}
+
+module.exports.UpdateCart = (req,res)=>{
+    const data = req.body
+    cart.UpdateCart(data.cantidad, data.idProducto)
+    .then(data=>{
+        res.send({
+            success: true,
+            msg: "carrito actualizado"
         })
     })
 }
