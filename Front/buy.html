@@ -104,19 +104,10 @@
                 <li class="nav-item">
                 <a class="nav-link hover" href="/Front/catalog.html">Catalogo</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link hover" href="/Front/contact.html">Contactanos</a>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
-                </li>
-                <li class="nav-item dnone" id="usernav">
-                    <a class="nav-link hover" href="#" id="username"><i class="fas fa-user"></i> Registrarse</a>
+                <li class="nav-item" id="usernav">
+                    <a class="nav-link hover" href="#" id="username"><i class="fas fa-user"></i>jesusenrique-r-p@hotmail.com</a>
                   </li>
             </ul>
             </div>
@@ -144,59 +135,79 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        <tr>
+                                            <td scope="col">ASUS TUF x570-plus</td>
+                                            <td scope="col">1</td>
+                                            <td scope="col">$399,99</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="col">G-Skill Triden Z 3600Mhz</td>
+                                            <td scope="col">2</td>
+                                            <td scope="col">$90</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="col">WD Caviar Blue SSD Nvme M.2</td>
+                                            <td scope="col">1</td>
+                                            <td scope="col">$53</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>    
                             <ul class="list-unstyled mb-4">
         
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" >Subtotal </strong> <span id="subTotalPrice"><strong>$0</strong></span></li>
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Envio</strong><strong id="Shipping">$0.00</strong></li>
-                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Impuesto</strong><strong id="Taxes">$0.00</strong></li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" >Subtotal </strong> <span id="subTotalPrice"><strong>$632,99</strong></span></li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Envio</strong><strong id="Shipping">$50.00</strong></li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Descuento</strong><strong id="Taxes">$0.00</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted" >Total</strong>
-                                  <h5 class="font-weight-bold" id="TotalPrice">$0</h5>
+                                  <h5 class="font-weight-bold" id="TotalPrice">$682.99</h5>
                                 </li>
                               </ul>
                         </div>
                         <div class="col-sm-6 bgData">
                             <div id="shipping_address" class="row">
         
-                                <h2 class="legend col-md-12 col-sm-12 col-xs-12">Direccion de Envio</h2>
+                                <h2 class="legend col-md-12 col-sm-12 col-xs-12">Datos de Pago</h2>
                                 <div id="shipping_address_name" class="field text-field col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="order_shipping_address_name" class="control-label">Nombre <em>*</em></label>
-                                    <input type="text" name="order_shipping_address[name]" id="order_shipping_address_name"
+                                    <label for="order_shipping_address_name" class="control-label">Nombre del tarjetahabiente</label>
+                                    <input type="text" name="order_shipping_address[name]" id="order_shipping_address_name" placeholder="Nombre"
                                         class="text form-control" required="required" autocomplete="given-name">
         
                                 </div>
         
                                 <div id="shipping_address_surname" class="field text-field col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="order_shipping_address_surname" class="control-label">Apellido <em>*</em></label>
-                                    <input type="text" name="order_shipping_address[surname]" id="order_shipping_address_surname"
-                                        class="text form-control" required="required" autocomplete="family-name">
+                                    <label for="order_shipping_address_surname" class="control-label">Tipo de tarjeta</label>
+                                    <select name="destino00" id="PaisSelect"
+                                        class="select col-sm-12 form-control" autocomplete="country">
+                                        <option selected disabled value="">Elegir...</option>
+                                        <option value="">MasterCard</option>
+                                        <option value="">Visa</option>
+                                        <option value="">American Express</option>
+                                    </select>
+                                </div>
+
+                                <div id="shipping_address_region"
+                                    class="field select-field col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <label for="order_shipping_address_region" class="control-label">Número de tarjeta</label>
+                                    <input type="numbre" name="order_shipping_address[name]" id="order_shipping_address_name" placeholder="N° Tarjeta"
+                                        class="text form-control" required="required" autocomplete="given-name">
+        
                                 </div>
         
                                 <div id="shipping_address_country"
                                     class="field select-field col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="order_shipping_address_country" class="control-label">Pais<em>*</em></label>
-                                    <select name="destino00" id="PaisSelect"
-                                        class="select col-sm-12 form-control" autocomplete="country">
-                                        <option selected disabled value="">Elegir...</option>
-        
-                                    </select>
+                                    <label for="order_shipping_address_country" class="control-label">Fecha de vencimiento</label>
+                                    <input type="date" class="date col-sm-12 form-control">
                                 </div>
         
-                                <div id="shipping_address_region"
-                                    class="field select-field col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="order_shipping_address_region" class="control-label">Estado<em>*</em></label>
-                                    <select name="destino00000" id="inputLoc"
-                                        class="select col-sm-12 form-control" autocomplete="address-level1">
-                                        
-                                    </select>
+                                <div id="shipping_address_postal" class="field text-field col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <label for="order_shipping_address_postal" class="control-label">CVV </label>
+                                    <input type="password" name="order_shipping_address[postal]" placeholder="CVV"
+                                        id="order_shipping_address_postal" class="text form-control" autocomplete="postal-code">
         
                                 </div>
         
                                 <div id="shipping_address_address" class="field text-field col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="order_shipping_address_address" class="control-label">Direccion <em>*</em></label>
+                                    <label for="order_shipping_address_address" class="control-label">Dirección de Envío</label>
                                     <input type="text" name="address"
                                         placeholder="Ej. Av 5 de Julio Frente al Seniat" id="order_shipping_address_address"
                                         class="text form-control" required="required" autocomplete="street-address">
@@ -204,35 +215,17 @@
                                 </div>
         
                                 <div id="shipping_address_postal" class="field text-field col-md-6 col-sm-12 col-xs-12 form-group">
-                                    <label for="order_shipping_address_postal" class="control-label">Codigo Postal </label>
+                                    <label for="order_shipping_address_postal" class="control-label">Código Postal </label>
                                     <input type="text" name="order_shipping_address[postal]" placeholder="Ej. 4001"
                                         id="order_shipping_address_postal" class="text form-control" autocomplete="postal-code">
         
                                 </div>
         
+                                
                             </div>
                         </div>
         
-                        <div class="col-11 bgDataTransfer">
-                            <div class="input-group mt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">N°</span>
-                                </div>
-                                <input type="number" class="form-control" placeholder="Número de refrencia" aria-label="Username"
-                                    aria-describedby="basic-addon1" name="referencia">
-                            </div>
-        
-                            <div class="input-group mt-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Subir Archivo</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="CustomFile"
-                                        aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="CustomFile">Suba su Referencia del Banco</label>
-                                </div>
-                            </div>
-                        </div>
+                    
                         
                         <div class="row justify-content-center bgButtonTransfer">
                             <input type="text" name="subtotal" id="Total4BE" class="invisible">
