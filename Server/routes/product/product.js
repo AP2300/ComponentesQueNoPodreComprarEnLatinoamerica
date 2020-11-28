@@ -14,6 +14,19 @@ exports.product = (id)=> {
   })
 }
 
+exports.addProductInfo = (data)=> {
+  return new Promise( (resolve, reject) => {
+    db.query(`INSERT INTO producto SET ?`,[data], (error, result) => {
+      if(error) {
+        console.log('error al crear el producto -->', error.stack);
+        return reject('Error al crear el producto')
+      }else{
+        return resolve(result[0])
+      }
+    })
+  })
+}
+
 exports.deleteProduct = (id)=> {
   return new Promise( (resolve, reject) => {
     let msg = "";
