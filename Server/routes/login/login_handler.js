@@ -22,16 +22,8 @@ module.exports.ValidateData =(req, res, next)=> {
 }
 
 module.exports.LogUser = (req,res)=>{
-    console.log(req.body);
-
-    if(req.body.email=="jesusenrique-r-p@hotmail.com") var admin = true;
-    else var admin = false
-
-    console.log(admin);
-
     login.login(req.body.email)
     .then(async (data) => {
-        console.log("log del then ==>"+data);
         if(data == undefined){
             res.send({
                 success:false,
@@ -45,7 +37,7 @@ module.exports.LogUser = (req,res)=>{
                     const payLoad = {
                         id: data.id,
                         email: data.email,
-                        admin: admin
+                        admin: data.rol
                     }
                     
                     token.signToken(payLoad)
@@ -63,6 +55,12 @@ module.exports.LogUser = (req,res)=>{
                             success:false,
                             msg: "Error en el login"
                         })
+                    })
+                }else{
+                    console.error("La Clave es Incorrecta")
+                    res.send({
+                        success: false,
+                        msg: "La clave es Incorrecta"
                     })
                 }
             })
