@@ -1,6 +1,5 @@
 let product;
 
-
 function ShowProduct(){
     let id = window.location.search
     let urlId = new URLSearchParams(id)
@@ -56,11 +55,18 @@ function AddToCart() {
     let id = window.location.search
     let urlId = new URLSearchParams(id)
     let Id = urlId.get("id")
-    console.log(Id)
     let cantidad = document.getElementById("inputcantidad").value;
-    axios.post("http://localhost:3000/addcart",{correo:window.correo, ID:Number(Id), cantidad:cantidad}, {headers: {'auth':token}})
+    axios.post("http://localhost:3000/addcart",{id:idUser, ID:Number(Id), cantidad:cantidad}, {headers: {'auth':token}})
     .then(res => {
-        console.log(res)
+        console.log(res.data.success);
+        if(res.data.success===true){
+            document.getElementById("body").innerHTML+=`<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Producto añadido exitosamente al carrito</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>`
+        }
     })
     .catch(err => {
         console.error(err); 

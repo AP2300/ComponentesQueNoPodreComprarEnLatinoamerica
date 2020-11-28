@@ -277,7 +277,7 @@ html body p{
 ::-webkit-scrollbar {
     width: 7px;
 }
-  
+   
 /* Track */
 ::-webkit-scrollbar-track {
     border-radius: 10px;
@@ -293,7 +293,7 @@ html body p{
 ::-webkit-scrollbar-thumb:hover{
     background: #363636;
     transition: 370ms; 
-}
+} 
 
 html body button.btn.btn-link.btn-block.text-left{
     background-color: inherit;
@@ -605,4 +605,12 @@ html body div div.jumbotron.JProducto{
      height: 3.6vh;
      border: rgba(128, 128, 128, 0.801) solid 1px;
      margin-bottom: 1vh;
- }
+}
+
+div.alert.alert-success.alert-dismissible.fade.show{
+    position: fixed;
+    top: 90px;
+    left: 5em;
+    right: 5em;
+    z-index: 10000;
+}

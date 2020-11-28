@@ -10,14 +10,15 @@ exports.addproduct = function(req) {
           return reject('Error al Agregar el Producto');
         }else{
             if(results.length<1){
-                DB.query("SELECT * FROM cliente WHERE email= ?", [req.body.correo], (err,results1)=>{
+                console.log("====>",req.body.id);
+                DB.query("SELECT id FROM carrito WHERE id_usuario= ?", [req.body.id], (err,results1)=>{
                     if(err){
 					  console.log('error al solicitar el id del usuario -->', err.stack);
 					  return reject('Error al Solicitar id_Usuario');
                     } 
 					else{
                         console.log(results1);
-						DB.query("INSERT INTO carrito_has_producto SET ?",{carrito_id:results1[0].carrito_id,producto_id:req.body.ID,cantidad:Number(req.body.cantidad)}, (err, res)=>{
+						DB.query("INSERT INTO carrito_has_producto SET ?",{carrito_id:results1[0].id,producto_id:req.body.ID,cantidad:Number(req.body.cantidad)}, (err, res)=>{
 							if(err){
 								console.log('error al insertar el producto en el carrito -->', err.stack);
 								return reject('Error al Insertar el Producto');
