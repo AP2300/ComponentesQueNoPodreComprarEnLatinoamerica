@@ -1,11 +1,11 @@
 var productos;
 var filter="";
+var isAdmin;
 const token = window.localStorage.getItem('token')
 
 function Loadcatalog(){
     axios.get("http://localhost:3000/catalog")
     .then(res => {
-        console.log(res.data);
         productos = res.data.data;
         buscar(productos, filter);
     })
@@ -18,7 +18,7 @@ function buscar(Data, filter){
     let text = document.getElementById("Busqueda").value.toLowerCase();
     text.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&");
     let reg = new RegExp(`\\b${text}`, 'i');
-    let html = "";    
+    let html = "";
 
     for(let producto of Data){
         if(reg.test(producto.nombre)&&producto.categoria===filter&&producto.cantidad_stock>0||reg.test(producto.nombre)&&filter==="Todos"&&producto.cantidad_stock>0
@@ -32,15 +32,50 @@ function buscar(Data, filter){
                             <h5 class="card-title">${producto.nombre}</h5>
                             <p class="card-text">Categoria: ${producto.categoria}</p>
                         </div>
-                        <div class="card-footer" id="catalogPage">
+                        </a>
+                        <div class="card-footer" id="catalogPage${producto.id}">
                             <small class="text-muted">Precio: ${producto.precio}$</small>
                         </div>
                     </div>
-                </a>
             </div>`
         }
     }
     document.getElementById("productos").innerHTML=html;
+    Admin(filter,reg);
+}
+
+function Admin(filter, reg) {
+    if(isAdmin == true){
+        for(let producto of productos){
+            if(reg.test(producto.nombre)&&producto.categoria===filter&&producto.cantidad_stock>0||reg.test(producto.nombre)&&filter==="Todos"&&producto.cantidad_stock>0
+            ||reg.test(producto.nombre)&&filter===""&&producto.cantidad_stock>0){
+                document.getElementById(`catalogPage${producto.id}`).innerHTML += `<br>
+                <span class="btn btns btn-alert mt-2" role="button" id="edit" onclick="editarProducto(${producto.id})"><i class="far fa-edit"></i></span>
+                <span class="btn btns mt-2" type="" onclick="borrarProducto(${producto.id})" id="boton"><i class="far fa-trash-alt"></i></span>`;
+            }
+        } 
+    }
+}
+
+function borrarProducto(id) {
+    var res = confirm("Está seguro de que desea eliminar el producto?");
+
+    if(res) {
+        console.log(`eliminado ${id}`);
+        axios.post("http://localhost:3000/deleteproduct", null,{headers: {'auth':token},params:{id:id}})
+        .then(res => {
+            alert(res.data.msg);
+            window.location.href="catalog.html";
+        })
+        .catch(err => {
+            alert(err.data.msg);
+            console.error(err); 
+        })
+    }
+}
+
+function editarProducto(id) {
+    window.location.href = `EditProduct.html?id=`+id;
 }
 
 $("ol").on("click","li", function (){
@@ -51,8 +86,6 @@ $("ol").on("click","li", function (){
     $(this).toggleClass("activo");
     buscar(productos,filter);
 })
-
-
 
 if(!token){
     document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
@@ -69,6 +102,7 @@ if(!token){
     if(isAdmin()) {
         var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
         <a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
+        isAdmin = true;
     } else {
         var options = `<a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
     }

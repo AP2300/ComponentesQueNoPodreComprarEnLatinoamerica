@@ -61,7 +61,6 @@ function register() {
 
       axios.post('http://localhost:3000/register', jsn)
       .then(function (response) {
-        console.log(response.data)
   
         if(response.data.success == true) {
           alert(response.data.msg);
