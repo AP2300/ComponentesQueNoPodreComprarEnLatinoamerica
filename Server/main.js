@@ -41,6 +41,7 @@ const middle = require("./routes/middleware");
 const home = require("./routes/home")
 const user = require("./routes/user");
 const product = require("./routes/product");
+const buy = require("./routes/buy")
 
 
 app.post("/register",register.ValidateData, register.RegisterUser);
@@ -52,7 +53,8 @@ app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
 app.get("/cart", middle.authHeader, middle.validSing, cart.Showcart);
-app.get("/product", product.ShowProduct)
+app.get("/product", product.ShowProduct);
+app.get("/buy", middle.authHeader, middle.validSing, buy.GetBuyDetails)
 
 
 

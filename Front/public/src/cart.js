@@ -128,3 +128,7 @@ function SubmitDelete (data){
         console.error(err); 
     })
 }
+
+function goToBuy(){
+    window.location.href = "buy.html" 
+}
