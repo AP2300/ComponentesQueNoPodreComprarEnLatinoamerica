@@ -85,7 +85,7 @@ if(!token){
 }else{
     document.getElementById("insert").innerHTML=""
     document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-    <a href="/UserCart/<%=Sesion.id%>"><i class="fas fa-shopping-cart"></i></a>`
+    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
 
     if(isAdmin()) {
         var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>

@@ -46,7 +46,8 @@ const product = require("./routes/product");
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
-app.post("/updatecart", middle.authHeader, middle.validSing, cart.UpdateCart)
+app.post("/updatecart", middle.authHeader, middle.validSing, cart.UpdateCart);
+app.post("/deletecart", middle.authHeader, middle.validSing, cart.DelCart);
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);

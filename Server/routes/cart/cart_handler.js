@@ -61,4 +61,29 @@ module.exports.UpdateCart = (req,res)=>{
             msg: "carrito actualizado"
         })
     })
+    .catch(err=>{
+        console.log(err);
+        res.send({
+            success:false,
+            msg: "error al consultar la base de datos"
+        })
+    })
+}
+
+module.exports.DelCart = (req,res)=>{
+    const data = req.body
+    cart.DelCart(data.delid)
+    .then(data=>{
+        res.send({
+            success:true,
+            msg: data
+        })
+    })
+    .catch(err =>{
+        console.log(err);
+        res.send({
+            success:false,
+            msg: "error al consultar la base de datos"
+        })
+    })
 }
