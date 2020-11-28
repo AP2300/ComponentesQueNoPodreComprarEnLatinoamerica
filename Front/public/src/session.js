@@ -2,13 +2,11 @@ var correo = "";
 var idUser = "";
 
 function validSession() {
-    console.log("entre a valid session");
     const token = window.localStorage.getItem('token');
     
     if(token == null) {
       window.location.href = './login.html'
     }else{
-        console.log(1234);
         axios.get('http://localhost:3000/user', {
             'headers': {'auth':token}
         })
@@ -17,6 +15,7 @@ function validSession() {
                 correo = response.data.data.email;
                 idUser = response.data.id;
                 document.getElementById("username").innerHTML="<i class='fas fa-user'></i>  "+response.data.data.email;
+                console.log(idUser);
             }
         })
         .catch(function(err) {
