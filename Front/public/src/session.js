@@ -16,6 +16,7 @@ function validSession() {
                 idUser = response.data.id;
                 console.log(idUser);
                 document.getElementById("username").innerHTML="<i class='fas fa-user'></i>  "+response.data.data.email;
+                console.log(idUser);
             }
         })
         .catch(function(err) {
@@ -36,4 +37,9 @@ function getSession(){
 
 function goCart(){
     window.location.href = './cart.html?id=' + idUser;
+}
+
+function CloseSession() {
+    window.localStorage.removeItem("token");
+    window.location.href="index.html"
 }
