@@ -1,9 +1,6 @@
 const token = window.localStorage.getItem("token")
 
-<<<<<<< HEAD
-function LoadCartToBuy (){
-    axios.get("http://localhost:3000/buy", {headers:{"auth":token}, params:{id:idUser}})
-=======
+
 async function LoadCartToBuy (){
     axios.get("http://localhost:3000/buy", {params:{id:idUser}, headers:{"auth":token}})
     .then(async (res) => {
@@ -42,42 +39,47 @@ function MakeBuyF (){
     const fechaS = `${date2.getFullYear()}-${date2.getMonth()+1}-${date2.getDate()}`
     const discnt = document.getElementById("discount").innerText.replace("%","");
     const total = document.getElementById("TotalPrice").innerText.replace("$","");
-
-
+    
     axios.post("http://localhost:3000/MakeBuy",{id:idUser,Fentrega:fechaS,Fsalida:fechaT,addrs:adrss,discount:discnt, total:total},{headers:{"auth":token}})
->>>>>>> 782639916f1bbff33133fa466a95ec038a0d3d8c
     .then(res => {
-        console.log(res)
+        if(res.data.success=true){
+            document.getElementById("body").innerHTML += `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>${res.data.msg}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`
+            setTimeout(()=>{window.location.href="index.html"},3000)
+        }else{
+            document.getElementById("body").innerHTML += `<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>${res.data.msg}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`
+        }
     })
     .catch(err => {
         console.error(err); 
     })
 }
 
-if(!token){
-    document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
-    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
-  </li>
-  <li class="nav-item" id="registranav">
-      <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
-  </li>`
-}else{
-    document.getElementById("insert").innerHTML=""
-    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
-
-    if(isAdmin()) {
-        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
-        <a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
-    } else {
-        var options = `<a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
+function ValidateData() {
+    if(!document.getElementById("NombreTarjeta").value){
+        return alert("El nombre del tarjetahabiente no puede estar vacio")
+    }else if(document.getElementById("TypeSelect").value==="Elegir..."){
+        return alert("Debe seleccionar el tipo de tarjeta")
+    }else if(!document.getElementById("NumeroTarjeta").value){
+        return alert("Debe ingresar un numero de tarjeta")
+    }else if(!document.getElementById("Fvencimiento").value){
+        return alert("Debe ingresar la fecha de vencimiento de su tarjeta")
+    }else if(!document.getElementById("CVV").value){
+        return alert("Debe introducir un cvv")
+    }else if(!document.getElementById("ZIP").value){
+        return alert("Debe introducir un codigo postal")
+    }else if(!document.getElementById("address").value){
+        return alert("Debe introducir una direccion de envio")
+    }else{
+        MakeBuyF()
     }
-
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
-            trigger: "click",
-            html: true,
-            content: options
-        })
-    })
 }
