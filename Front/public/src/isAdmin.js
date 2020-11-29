@@ -8,10 +8,12 @@ async function isAdmin() {
             'headers': {'auth':token}
         })
         .then(function (response){
-            if(response.data.log===true&&response.data.admin===true){
-                console.log(true);
+            console.log(response.data);
+            if(response.data.log===true&&response.data.roles_id===1){
                 return true;
-            } else return false;
+            } else{
+                return false;
+            } 
         })
         .catch(function(err) {
             console.log(err)
