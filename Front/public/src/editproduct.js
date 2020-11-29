@@ -35,6 +35,7 @@ function EditProduct(){
             dataArr += ';';
         }  
     }
+
     let name = document.getElementById(`inputMedName`).value;
     let marca = document.getElementById(`inputMedmarca`).value;
     let precio = document.getElementById("inputPrice").value;
@@ -42,6 +43,10 @@ function EditProduct(){
     let cantidad = document.getElementById("inputQuantity").value;
     let img = document.getElementById('CustomFile').files[0];
     let notchange = document.getElementById('checking').checked;
+
+    if (validData(notchange)){
+        return null;
+    }
     
     var formData = new FormData();
     formData.append("nombre",name);
@@ -52,16 +57,43 @@ function EditProduct(){
     formData.append("foto",img);
     formData.append("descripcion",dataArr);
     formData.append("notchange",notchange);
+    console.log(notchange);
 
     axios.post("http://localhost:3000/updateproduct", formData ,{headers: {'auth':token,'Content-Type': 'multipart/form-data'},params:{id:id}})
-    .then(res => {
-        alert(res);
+    .then(info => {
+        alert(info.data.msg);
         window.location.href="catalog.html";
     })
     .catch(err => {
         console.error(err); 
     })
     
+}
+
+function validData(check){
+    if(document.getElementById(`inputMedName`).value == ""){
+        alert('El Nombre esta vacio');
+        return true;
+    }
+    if(document.getElementById(`inputMedmarca`).value == ""){
+        alert('La Marca esta vacia');
+        return true;
+    }
+    if(document.getElementById(`inputPrice`).value == ""){
+        alert('El Precio esta vacio');
+        return true;
+    }
+    if(document.getElementById(`inputQuantity`).value == ""){
+        alert('La Cantidad esta vacia');
+        return true;
+    }
+    if(!document.getElementById('CustomFile').files[0]){
+        if(!check){
+            alert('No ha subido ninguna imagen para Cambiar');
+            return true;
+        }
+    }
+    return false;
 }
 
 function handleChange(obj) {
@@ -74,30 +106,4 @@ function handleChange(obj) {
 
 const token = window.localStorage.getItem('token')
 
-if(!token){
-    document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
-    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
-  </li>
-  <li class="nav-item" id="registranav">
-      <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
-  </li>`
-}else{
-    document.getElementById("insert").innerHTML=""
-    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
 
-    if(isAdmin()) {
-        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
-        <a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
-    } else {
-        var options = `<a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
-    }
-
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
-            trigger: "click",
-            html: true,
-            content: options
-        })
-    })
-}
