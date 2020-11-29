@@ -4,8 +4,8 @@ const   express               = require("express"),
         FP                    = require("express-fileupload"),
         bcrypt                = require("bcryptjs"),
         NodeMailer            = require("nodemailer")
-        // fs                    = require("fs"),
-        // { v4: uuidv4 }        = require('uuid');
+        fs                    = require("fs"),
+        { v4: uuidv4 }        = require('uuid');
 
 ///////////////Configuraciones de la app////////////////////
 app.set("port",process.env.PORT||3000);
@@ -53,6 +53,7 @@ app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
 app.post("/updatecart", middle.authHeader, middle.validSing, cart.UpdateCart);
 app.post("/product", middle.authHeader, middle.validSing, product.addProduct);
 app.post("/deletecart", middle.authHeader, middle.validSing, cart.DelCart);
+app.post("/MakeBuy", middle.authHeader, middle.validSing, buy.MakeBuy)
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
@@ -64,6 +65,8 @@ app.get("/buy", middle.authHeader, middle.validSing, buy.GetBuyDetails);
 app.get("/categories", categories.ShowCategories);
 app.get("/roles", roles.ShowRoles);
 app.post("/deleteproduct", middle.authHeader, middle.validSing, product.DeleteProduct);
+app.post("/updateproduct", middle.authHeader, middle.validSing, product.UpdateProduct);
+
 
 
 

@@ -235,9 +235,9 @@ if(!token){
 
     if(isAdmin()) {
         var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
-        <a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
+        <a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
     } else {
-        var options = `<a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
+        var options = `<a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
     }
 
     $(document).ready(function () {
