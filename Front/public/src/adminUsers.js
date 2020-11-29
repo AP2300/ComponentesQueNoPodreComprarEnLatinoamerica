@@ -18,24 +18,32 @@ function listUsers() {
                 html += `
                 <div class="accordion " id="accordion">
                     <div class="card comentarios">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                    data-target="#collapse${u.id}">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            Nombre: ${u.nombre}
-                                        </div>
-                                        <div class="col-sm">
-                                            Correo: ${u.email}
-                                        </div>
-                                        <span class="btn btne btn-alert mr-2" type="" onclick="editarUsuario(${u.id})" id="edit"><i class="far fa-edit" ></i></span>
-                                        <span class="btn btnd" type="" onclick="borrarUsuario(${u.id})"><i class="far fa-trash-alt"></i></span>
+                        <div>
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0 " >
+                                <div class="row">
+                                    <div class="col-sm">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                        data-target="#collapse${u.id}">
+                                        
+                                            <div class="col-sm">
+                                                Nombre: ${u.nombre}
+                                            </div>
+                                            <div class="col-sm">
+                                                Correo: ${u.email}
+                                            </div>
+                                        
+                                    </button>
                                     </div>
-                                </button>
-                            </h2>
-                        </div>
-        
+                                    <span style="position: relative;">
+                                    <span class="btn btne mr-2" type="button" onclick="editarUsuario(${u.id})" id="edit"><i class="far fa-edit" ></i></span>
+                                    <span class="btn btnd" type="button" onclick="borrarUsuario(${u.id})"><i class="far fa-trash-alt"></i></span>
+                                </div>
+                                </h2>
+                                    
+                            </div>
+                            
+                        </div> 
                         <div id="collapse${u.id}" class="collapse">
                             <div class="card-body ">
                                 <div class="row">
