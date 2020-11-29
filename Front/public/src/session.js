@@ -1,5 +1,6 @@
 var correo = "";
 var idUser = "";
+var rol = "";
 
 function validSession() {
     const token = window.localStorage.getItem('token');
@@ -74,6 +75,11 @@ function getSession(){
     }else if(window.location.href.split("/")[4]==="login.html"&&token!=null||window.location.href.split("/")[4]==="register.html"&&token!=null){
       window.location.href = './index.html';
     }
+}
+
+async function isAdmin(){
+    if(rol === 1) return true;
+    else return false;
 }
 
 function goCart(){

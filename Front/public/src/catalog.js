@@ -1,6 +1,6 @@
 var productos;
 var filter="";
-var isAdmin;
+
 const token = window.localStorage.getItem('token')
 
 function Loadcatalog(){
@@ -44,8 +44,8 @@ function buscar(Data, filter){
     Admin(filter,reg);
 }
 
-function Admin(filter, reg) {
-    if(isAdmin == true){
+async function Admin(filter, reg) {
+    if(isAdmin()){
         for(let producto of productos){
             if(reg.test(producto.nombre)&&producto.categoria===filter&&producto.cantidad_stock>0||reg.test(producto.nombre)&&filter==="Todos"&&producto.cantidad_stock>0
             ||reg.test(producto.nombre)&&filter===""&&producto.cantidad_stock>0){
