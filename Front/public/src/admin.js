@@ -302,7 +302,7 @@ function getSales() {
                                 <hr>
                                 <div class="row">
                                     <div class="mx-auto">
-                                        Monto: ${v.total_venta} 
+                                        Monto: $${v.total_venta} 
                                     </div>
                                 </div>
                                 <hr>

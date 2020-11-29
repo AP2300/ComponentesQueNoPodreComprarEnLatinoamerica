@@ -1,41 +1,33 @@
 function LoadData (){
-    axios.get("http://localhost:3000/index")
+    const token = window.localStorage.getItem("token")
+    axios.get("http://localhost:3000/index", {headers:{"auth":token}})
     .then(res => {
-        console.log(res)
+        if(res.data!=undefined){
+            let temp="";
+            let data = res.data.data
+            console.log(data[0]);
+                for (const i in data) {
+                let dataArr = data[i].descripcion.split(";")
+                temp+=`
+                <div class="card" onclick="GoToProduct(${data[i].id})" style="cursor: pointer;">
+                <img src="${data[i].foto}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">${data[i].nombre}</h5>
+                  <p class="card-text">${dataArr[i].split(":")[0]} : ${dataArr[i].split(":")[1]}</p>
+                  <p class="card-text"><small class="text-muted">$${data[i].precio}</small></p>
+                </div>
+              </div>`
+            }
+          document.getElementById("insertCard").innerHTML= temp;
+        }
     })
     .catch(err => {
         console.error(err); 
     })
 }
 
+function GoToProduct(data){
+    window.location.href = "product.html?id="+data
+}
 
-const token = window.localStorage.getItem('token')
-
-// if(!token){
-//     document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
-//     <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
-//   </li>
-//   <li class="nav-item" id="registranav">
-//       <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
-//   </li>`
-// }else{
-//     document.getElementById("insert").innerHTML=""
-//     document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-//     <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
-//     console.log(isAdmin);
-//     if(isAdmin()) {
-//         var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
-//         <a class="nav-link hover" href="/Front/CloseSession.html" ><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
-//     } else {
-//         var options = `<a class="nav-link hover" href="/Front/CloseSession.html" ><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
-//     }
-
-//     $(document).ready(function () {
-//         $('[data-toggle="popover"]').popover({
-//             trigger: "click",
-//             html: true,
-//             content: options
-//         })
-//     })
-// }
 
