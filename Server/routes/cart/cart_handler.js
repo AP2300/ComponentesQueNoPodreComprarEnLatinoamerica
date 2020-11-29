@@ -29,7 +29,6 @@ module.exports.addProduct = (req,res)=>{
 module.exports.Showcart = (req,res)=>{
     cart.Showcart(req.query.id)
     .then(async (data) => {
-        console.log(data);
         if(data == undefined){
             res.send({
                 success:false,

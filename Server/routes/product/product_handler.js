@@ -97,3 +97,55 @@ module.exports.DeleteProduct = (req,res)=>{
         })
     })
 }
+
+module.exports.UpdateProduct = (req,res)=>{
+
+    let {nombre, precio, cantidad_stock, marca, descripcion, categoria_id} = req.body;
+    let foto = req.files.foto;
+    let id = req.query.id;
+    let data;
+    
+    if(req.body.notchange){
+         data = {
+            nombre, 
+            precio, 
+            cantidad_stock,
+            foto,
+            marca, 
+            descripcion, 
+            categoria_id
+        }
+        if(foto!==null) {
+            uniqueName = uuidv4();
+            imgSource = `http://localhost:3000/img/${uniqueName}${foto.name.slice(foto.name.indexOf("."))}`;
+            foto.mv(`./src/img/${uniqueName}${foto.name.slice(foto.name.indexOf("."))}`, (err)=>{
+                if(err) {    
+                    console.log(err);
+                    res.send({
+                        success: false,
+                        msg: "Error en subida de archivo"
+                    });
+                }
+            })
+        }
+        data.foto=imgSource;
+    } else{
+        data = {
+            nombre, 
+            precio, 
+            cantidad_stock,
+            marca, 
+            descripcion, 
+            categoria_id
+        }
+    }
+
+    product.updateProduct(data,id)
+    .then(async (msg) => {
+        res.send(msg);
+    })
+    .catch(err=>{
+        console.log(err);
+        res.send(msg)
+    })
+}

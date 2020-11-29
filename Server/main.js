@@ -4,8 +4,8 @@ const   express               = require("express"),
         FP                    = require("express-fileupload"),
         bcrypt                = require("bcryptjs"),
         NodeMailer            = require("nodemailer")
-        // fs                    = require("fs"),
-        // { v4: uuidv4 }        = require('uuid');
+        fs                    = require("fs"),
+        { v4: uuidv4 }        = require('uuid');
 
 ///////////////Configuraciones de la app////////////////////
 app.set("port",process.env.PORT||3000);
@@ -47,6 +47,7 @@ const categories = require("./routes/categories");
 const roles = require("./routes/roles");
 
 app.delete("/user/:id", middle.authHeader, middle.validSing, user.DeleteUser);
+app.put("/user/:id", middle.authHeader, middle.validSing, user.EditUser);
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
@@ -57,6 +58,7 @@ app.post("/MakeBuy", middle.authHeader, middle.validSing, buy.MakeBuy)
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
+app.get("/user/:id", middle.authHeader, middle.validSing, user.GetUserInfo);
 app.get("/users", middle.authHeader, middle.validSing, user.GetUsersData);
 app.get("/cart", middle.authHeader, middle.validSing, cart.Showcart);
 app.get("/product", product.ShowProduct);
@@ -64,6 +66,8 @@ app.get("/buy", middle.authHeader, middle.validSing, buy.GetBuyDetails);
 app.get("/categories", categories.ShowCategories);
 app.get("/roles", roles.ShowRoles);
 app.post("/deleteproduct", middle.authHeader, middle.validSing, product.DeleteProduct);
+app.post("/updateproduct", middle.authHeader, middle.validSing, product.UpdateProduct);
+
 
 
 

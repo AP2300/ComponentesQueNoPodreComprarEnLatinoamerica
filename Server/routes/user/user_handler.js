@@ -78,3 +78,42 @@ module.exports.DeleteUser = async (req, res)=>{
         });
     })
 }
+
+module.exports.GetUserInfo = async (req, res)=>{
+    let id = req.params.id;
+
+    user.userInfo(id)
+    .then(data =>{
+        return res.send({
+            success:true,
+            data:data,
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        return res.send({
+            success:false,
+            msg: err
+        })
+    })
+}
+
+module.exports.EditUser = async (req, res)=>{
+    let id = req.params.id;
+    let data = req.body;
+
+    user.editUser(data, id)
+    .then(data =>{
+        return res.send({
+            success:true,
+            msg: data,
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        return res.send({
+            success:false,
+            msg: err
+        })
+    })
+}
