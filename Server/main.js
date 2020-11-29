@@ -56,6 +56,7 @@ app.post("/deletecart", middle.authHeader, middle.validSing, cart.DelCart);
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
+app.get("/user/:id", middle.authHeader, middle.validSing, user.GetUserInfo);
 app.get("/users", middle.authHeader, middle.validSing, user.GetUsersData);
 app.get("/cart", middle.authHeader, middle.validSing, cart.Showcart);
 app.get("/product", product.ShowProduct);

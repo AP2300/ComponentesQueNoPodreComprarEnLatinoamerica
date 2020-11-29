@@ -84,7 +84,7 @@ function listUsers() {
 }
 
 function editarUsuario(id) {
-    window.location.href = './editUser.html';
+    window.location.href = `./editUser.html?id=${id}`;
 }
 
 function borrarUsuario(id) {

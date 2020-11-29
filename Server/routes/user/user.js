@@ -44,3 +44,18 @@ exports.DelUser = function (id) {
     })
   })
 }
+
+exports.userInfo = function (id) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT usuarios.*, roles.nombre AS rol FROM usuarios INNER JOIN roles ON roles.id=usuarios.roles_id WHERE usuarios.id=?', [id], (error, result) => {
+
+      if (error) {
+        console.log('error en obtener data', error.stack);
+        return reject('Error')
+      }
+
+      resolve(result[0]);
+
+    })
+  })
+}

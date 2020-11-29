@@ -221,6 +221,16 @@ html body a#Ventas:hover{
     transition: 330ms;
 }
 
+#cancel {
+    background-color: rgb(253, 75, 75);
+}
+
+#cancel:hover {
+    background-color: black;
+    color: white;
+    transition: 330ms;
+}
+
 html body a#Earning{
     color: black;
     text-decoration: none;
