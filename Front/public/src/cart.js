@@ -94,7 +94,7 @@ function SubmitDelete (data){
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>`
-                setTimeout(()=>{window.location.reload()},3000)
+                setTimeout(()=>{window.location.reload()},1000)
             }else{
                 document.getElementById("empty-loading").innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>${res.data.msg}</strong>

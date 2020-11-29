@@ -69,7 +69,7 @@ function AddToCart() {
 
         setTimeout(() => {
             window.location.href= "catalog.html"
-        }, 1800);
+        }, 1000);
         }
     })
     .catch(err => {
