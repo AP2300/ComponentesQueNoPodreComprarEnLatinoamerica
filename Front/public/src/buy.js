@@ -1,7 +1,7 @@
 const token = window.localStorage.getItem("token")
 
 function LoadCartToBuy (){
-    axios.get("http://localhost:3000/buy", {id:idUser}, {headers:{"auth":token}})
+    axios.get("http://localhost:3000/buy", {headers:{"auth":token}, params:{id:idUser}})
     .then(res => {
         console.log(res)
     })
