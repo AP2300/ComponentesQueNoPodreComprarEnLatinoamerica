@@ -40,7 +40,7 @@ function MakeBuyF (){
     const discnt = document.getElementById("discount").innerText.replace("%","");
     const total = document.getElementById("TotalPrice").innerText.replace("$","");
     
-    axios.post("http://localhost:3000/MakeBuy",{id:idUser,Fentrega:fechaS,Fsalida:fechaT,addrs:adrss,discount:discnt, total:total},{headers:{"auth":token}})
+    axios.post("http://localhost:3000/MakeBuy",{id:idUser,Fentrega:fechaS,Fsalida:fechaT,addrs:adrss,discount:discnt, total:total, email:correo},{headers:{"auth":token}})
     .then(res => {
         if(res.data.success=true){
             document.getElementById("body").innerHTML += `<div class="alert alert-success alert-dismissible fade show" role="alert">
