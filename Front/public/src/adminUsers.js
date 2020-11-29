@@ -28,8 +28,8 @@ function listUsers() {
                                         <div class="col-sm">
                                             Correo: ${u.email}
                                         </div>
-                                        <span class="btn btns btn-alert mr-2" type="" onclick="editarUsuario(${u.id})" id="edit"><i class="far fa-edit" ></i></span>
-                                        <span class="btn btns" type="" onclick="borrarUsuario(${u.id})"><i class="far fa-trash-alt"></i></span>
+                                        <span class="btn btne btn-alert mr-2" type="" onclick="editarUsuario(${u.id})" id="edit"><i class="far fa-edit" ></i></span>
+                                        <span class="btn btnd" type="" onclick="borrarUsuario(${u.id})"><i class="far fa-trash-alt"></i></span>
                                     </div>
                                 </button>
                             </h2>
@@ -93,32 +93,23 @@ function borrarUsuario(id) {
         token = window.sessionStorage.getItem('token');
     }
 
-    axios.delete('http://localhost:3000/user', {
+    let opc = confirm("Esta seguro que desea eliminar el usuario?");
+    console.log(opc);
+    if(opc) {
+        axios.delete(`http://localhost:3000/user/${id}`, {
         'headers': { 'auth': token }
-    })
-    .then(res => {
-        console.log(res)
-        html = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong id="errRegister"><%= responses.messageErr %></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        `
-
-        html = `
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong id="errRegister"><%= responses.messageOK %></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        `
-    })
-    .catch(err => {
-        console.error(err); 
-    })
+        })
+        .then(res => {
+            console.log(res)
+            if(res.data.success == true) {
+                alert(res.data.msg);
+                window.location.href = "./adminUsers.html";
+            }
+        })
+        .catch(err => {
+            console.error(err); 
+        })
+    }     
 }
 
 const token = window.localStorage.getItem('token')

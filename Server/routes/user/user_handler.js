@@ -59,3 +59,22 @@ module.exports.GetUsersData = async (req, res)=>{
         })
     })
 }
+
+module.exports.DeleteUser = async (req, res)=>{
+    let id = req.params.id;
+
+    user.DelUser(id)
+    .then(data =>{
+        return res.send({
+            success:true,
+            msg: "Usuario eliminado satisfactoriamente"
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        return res.send({
+            success:false,
+            msg: err
+        });
+    })
+}

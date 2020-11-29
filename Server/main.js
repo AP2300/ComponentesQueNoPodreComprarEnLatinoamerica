@@ -46,7 +46,7 @@ const buy = require("./routes/buy")
 const categories = require("./routes/categories");
 const roles = require("./routes/roles");
 
-
+app.delete("/user/:id", middle.authHeader, middle.validSing, user.DeleteUser);
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);

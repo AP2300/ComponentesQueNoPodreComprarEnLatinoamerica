@@ -29,3 +29,18 @@ exports.users = function () {
     })
   })
 }
+
+exports.DelUser = function (id) {
+  return new Promise((resolve, reject) => {
+    db.query('DELETE FROM usuarios WHERE id=?', [id], (error, result) => {
+
+      if (error) {
+        console.log('error al eliminar usuario', error.stack);
+        return reject('Error')
+      }
+
+      resolve(result);
+
+    })
+  })
+}
