@@ -72,3 +72,28 @@ module.exports.addProduct = (req,res)=>{
         })
     })
 }
+
+module.exports.DeleteProduct = (req,res)=>{
+    let query = req.query.id
+    product.deleteProduct(query)
+    .then(async (data) => {
+        if(data == undefined){
+            res.send({
+                success:false,
+                msg:"Hubo un problema al Eliminar el producto"
+            })
+        }else{
+            res.send({
+                success:true,
+                msg:data
+            }) 
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+        res.send({
+            success:false,
+            msg: "Error al eliminar el producto"
+        })
+    })
+}
