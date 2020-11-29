@@ -33,3 +33,48 @@ module.exports.GetUserData = async (req, res)=>{
         })
     })
 }
+
+module.exports.GetUsersData = async (req, res)=>{
+    user.users()
+    .then(data =>{
+        if(data==null){
+            return res.send({
+                success:true,
+                data:data,
+                msg: "No hay usuarios para mostrar"
+            })
+        }else{
+            return res.send({
+                success:true,
+                data:data,
+                msg: "Lista de usuarios"
+            })
+        }
+    })
+    .catch(err =>{
+        console.log(err);
+        return res.send({
+            success:false,
+            msg: err
+        })
+    })
+}
+
+module.exports.DeleteUser = async (req, res)=>{
+    let id = req.params.id;
+
+    user.DelUser(id)
+    .then(data =>{
+        return res.send({
+            success:true,
+            msg: "Usuario eliminado satisfactoriamente"
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        return res.send({
+            success:false,
+            msg: err
+        });
+    })
+}
