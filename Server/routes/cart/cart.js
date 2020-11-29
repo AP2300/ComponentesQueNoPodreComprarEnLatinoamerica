@@ -1,11 +1,20 @@
 const DB = require('../../connections/Dbconnection');
 let idCart;
 
+
 exports.addproduct = function(req) {
   return new Promise( (resolve, reject) => {
     let key;
+    DB.query("SELECT id FROM carrito WHERE id_usuario = ?", [req.body.id],(err, resultC)=>{
+        if(err){
+            console.log(err);
+            reject("error al consultar el carrito")
+        }else{
+            idCart=resultC[0].id;
+        }
+    })
     
-    DB.query("SELECT cantidad FROM carrito_has_producto WHERE producto_id= ?",[req.body.ID], (err, results)=>{
+    DB.query("SELECT cantidad FROM carrito_has_producto WHERE producto_id= ? AND carrito_id = ?",[req.body.ID, idCart], (err, results)=>{
         if(err){
           console.log('error al pedir la cantidad del producto a agregar -->', err.stack);
           return reject('Error al Agregar el Producto');
@@ -70,7 +79,7 @@ exports.Showcart = (id)=>{
                             })
                         }
                     }else{
-                        return resolve('No hay Productos en el carrito');
+                        return reject('No hay Productos en el carrito');
                     }
                 })
             }
@@ -95,6 +104,20 @@ exports.UpdateCart = (qtty, id)=>{
                         resolve("carrito actualizado correctamente")
                     }
                 })
+            }
+        })
+    })
+}
+
+exports.DelCart = (id)=>{
+    return new Promise ((resolve, reject)=>{
+        DB.query(`DELETE FROM carrito_has_producto WHERE producto_id = ? AND carrito_id = ?`,[id,idCart], (err, result)=>{
+            if(err){
+                console.log(err);
+                return reject("Error al eliminar del carrito")
+            }else{
+                console.log(result);
+                return resolve("Producto eliminado del carrito exitosamente")
             }
         })
     })

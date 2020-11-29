@@ -28,7 +28,7 @@ function validSession() {
 
 function getSession(){
     const token = window.localStorage.getItem('token');
-    if(window.location.href.split("/")[4]==="buy.html"&&token!==null||window.location.href.split("/")[4]==="cart.html"&&token==null||token!==null){
+    if(window.location.href.split("/")[4]==="buy.html"&&token!==null||window.location.href.split("/")[4]===`cart.html`&&token==null||token!==null){
         validSession()
     }else if(window.location.href.split("/")[4]==="login.html"&&token!=null||window.location.href.split("/")[4]==="register.html"&&token!=null){
       window.location.href = './index.html'
