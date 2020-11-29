@@ -1,4 +1,5 @@
 const db = require('./../../connections/Dbconnection');
+const bcrypt = require('bcryptjs');
 
 exports.user = function (id) {
   return new Promise((resolve, reject) => {
@@ -56,6 +57,43 @@ exports.userInfo = function (id) {
 
       resolve(result[0]);
 
+    })
+  })
+}
+
+exports.editUser = function (data, id) {
+  return new Promise((resolve, reject) => {
+    db.query('SELECT email FROM usuarios WHERE NOT id=? AND email=?', [id, data.email], (error, result) => {
+      if (error) {
+        console.log('error en obtener data', error.stack);
+        return reject('Error al actualizar')
+      }
+      if(result.length > 0) {
+        return reject("El email seleccionado ya existe");
+      } else {
+        bcrypt.hash(data.clave, 8, function(err, hash) {
+          db.query('UPDATE usuarios SET ? WHERE id=?', [{
+            nombre: data.nombre,
+            doc_identidad: data.doc_identidad,
+            num_contacto: data.num_contacto,
+            fecha_nacimiento: data.fecha_nacimiento,
+            email: data.email,
+            direccion:data.direccion,
+            clave:hash,
+            roles_id:data.roles_id
+          }, id], (error, result) => {
+
+            if (error) {
+              console.log('error en obtener data', error.stack);
+              return reject('Error al actualizar')
+            }
+      
+            resolve("Usuario actualizado satisfactoriamente");
+      
+          })
+        })
+      }
+        
     })
   })
 }

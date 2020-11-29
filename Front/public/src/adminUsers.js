@@ -14,6 +14,7 @@ function listUsers() {
         if(res.data.success == true && res.data.msg!="No hay usuarios para mostrar") {
             for (const u of res.data.data) {
                 let date = new Date(u.fecha_nacimiento);
+                let mon = (date.getMonth()+1<10) ? `0${date.getMonth()+1}` : date.getMonth()+1;
                 html += `
                 <div class="accordion " id="accordion">
                     <div class="card comentarios">
@@ -45,7 +46,7 @@ function listUsers() {
                                         Numero de Contacto: ${u.num_contacto}
                                     </div>
                                     <div class="col-sm">
-                                        Fecha de Nacimiento: ${date.getDate()}/${parseInt(date.getMonth())+1}/${date.getFullYear()}
+                                        Fecha de Nacimiento: ${date.getDate()}/${mon}/${date.getFullYear()}
                                     </div>
                                 </div>
                                 <hr>

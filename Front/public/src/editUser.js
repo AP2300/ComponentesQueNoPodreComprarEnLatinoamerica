@@ -16,7 +16,7 @@ function getUser() {
         if(res.data.success==true) {        
             user = res.data.data;
             let date = new Date(user.fecha_nacimiento);
-            let mon = (date.getMonth()+1<10) ? `0${date.getMonth()}` : date.getMonth();
+            let mon = (date.getMonth()+1<10) ? `0${date.getMonth()+1}` : date.getMonth()+1;
             let html = `
             <h1 class="mx-auto mb-3">Editar usuario</h1>
             <div class="form-group">
@@ -81,7 +81,7 @@ function getUser() {
                     html += `</select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" onclick="editUser()">Registrar</button>
+                        <button type="submit" class="btn btn-primary" onclick="editUser()">Actualizar</button>
                         <button type="submit" id="cancel" class="btn btn-danger" onclick="window.location.href = './adminUsers.html'">Cancelar</button>
                     </div>`
                     document.getElementById("user").innerHTML = html;
@@ -104,6 +104,11 @@ function getUser() {
 }
 
 function editUser() {
+    let token = window.localStorage.getItem('token');
+    if (token == null) {
+        token = window.sessionStorage.getItem('token');
+    }
+
     const nombre = document.getElementById("nombre").value;
     const doc_identidad = document.getElementById("doc_identidad").value;
     const num_contacto = document.getElementById("num_contacto").value;
@@ -161,10 +166,12 @@ function editUser() {
         "direccion":direccion,
         "email":email,
         "clave":clave,
-        "rol": rol
+        "roles_id": rol
       }
 
-      axios.post(`http://localhost:3000/editUset/${query.get("id")}`, jsn)
+      axios.put(`http://localhost:3000/user/${query.get("id")}`, jsn, {
+        'headers': { 'auth': token }
+        })
       .then(function (response) {
   
         if(response.data.success == true) {

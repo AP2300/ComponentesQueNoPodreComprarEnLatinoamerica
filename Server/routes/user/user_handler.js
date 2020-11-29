@@ -97,3 +97,23 @@ module.exports.GetUserInfo = async (req, res)=>{
         })
     })
 }
+
+module.exports.EditUser = async (req, res)=>{
+    let id = req.params.id;
+    let data = req.body;
+
+    user.editUser(data, id)
+    .then(data =>{
+        return res.send({
+            success:true,
+            msg: data,
+        });
+    })
+    .catch(err =>{
+        console.log(err);
+        return res.send({
+            success:false,
+            msg: err
+        })
+    })
+}
