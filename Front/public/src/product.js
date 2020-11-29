@@ -66,6 +66,10 @@ function AddToCart() {
               <span aria-hidden="true">&times;</span>
             </button>
         </div>`
+
+        setTimeout(() => {
+            window.location.href= "catalog.html"
+        }, 1800);
         }
     })
     .catch(err => {

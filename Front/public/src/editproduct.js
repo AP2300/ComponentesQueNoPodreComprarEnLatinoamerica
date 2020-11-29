@@ -106,4 +106,7 @@ function handleChange(obj) {
 
 const token = window.localStorage.getItem('token')
 
-
+$('#CustomFile').on('change',function(){
+    var fileName = $(this).val();
+    $(this).next('.custom-file-label').html(fileName.replace('C:\\fakepath\\', " "));
+})
