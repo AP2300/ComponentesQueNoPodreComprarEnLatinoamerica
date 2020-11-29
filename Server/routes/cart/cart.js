@@ -60,6 +60,8 @@ exports.Showcart = (id)=>{
                             let query = DB.query("SELECT * FROM producto WHERE id = ?", [results[i].producto_id])
                             query.on("result",async (row)=> {
                                 CartInfo[i] = {data:row, cantidad:results[i].cantidad, id:results[i].producto_id};
+                                console.log(row);
+                                console.log(results[i]);
                             })
                             query.on("end",()=>{
                                 if(parseInt(i) == (results.length-1)){

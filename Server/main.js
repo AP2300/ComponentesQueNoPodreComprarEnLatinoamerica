@@ -12,6 +12,7 @@ app.set("port",process.env.PORT||3000);
 app.use(BodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(FP());
+app.use(express.static('src'));
 
 app.use(BodyParser.json({'limit':'1mb'}));
 app.disable('x-powered-by');
@@ -41,17 +42,20 @@ const middle = require("./routes/middleware");
 const home = require("./routes/home")
 const user = require("./routes/user");
 const product = require("./routes/product");
+const categories = require("./routes/categories");
 
 
 app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
-app.post("/updatecart", middle.authHeader, middle.validSing, cart.UpdateCart)
+app.post("/updatecart", middle.authHeader, middle.validSing, cart.UpdateCart);
+app.post("/product", middle.authHeader, middle.validSing, product.addProduct);
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
 app.get("/cart", middle.authHeader, middle.validSing, cart.Showcart);
-app.get("/product", product.ShowProduct)
+app.get("/product", product.ShowProduct);
+app.get("/categories", categories.ShowCategories);
 
 
 
