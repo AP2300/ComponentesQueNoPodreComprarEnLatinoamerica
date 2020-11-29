@@ -49,11 +49,8 @@ app.post("/register",register.ValidateData, register.RegisterUser);
 app.post("/login", login.ValidateData, login.LogUser);
 app.post("/addcart", middle.authHeader, middle.validSing, cart.addProduct);
 app.post("/updatecart", middle.authHeader, middle.validSing, cart.UpdateCart);
-<<<<<<< HEAD
 app.post("/product", middle.authHeader, middle.validSing, product.addProduct);
-=======
 app.post("/deletecart", middle.authHeader, middle.validSing, cart.DelCart);
->>>>>>> 478ef9410cbafe1a6a870e10fddd60704e9a1dce
 app.get("/catalog", catalog.ShowCatalog);
 app.get("/index", middle.authHeader, middle.validSing, home.GetRecomendedData);
 app.get("/user", middle.authHeader, middle.validSing, user.GetUserData);
