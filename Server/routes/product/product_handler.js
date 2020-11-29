@@ -101,12 +101,15 @@ module.exports.DeleteProduct = (req,res)=>{
 module.exports.UpdateProduct = (req,res)=>{
 
     let {nombre, precio, cantidad_stock, marca, descripcion, categoria_id} = req.body;
-    let foto = req.files.foto;
+    let foto;
     let id = req.query.id;
     let data;
     
-    if(req.body.notchange){
-         data = {
+    console.log(req.body);
+
+    if(req.body.notchange == 'false'){
+        foto = req.files.foto;
+        data = {
             nombre, 
             precio, 
             cantidad_stock,
@@ -115,21 +118,20 @@ module.exports.UpdateProduct = (req,res)=>{
             descripcion, 
             categoria_id
         }
-        if(foto!==null) {
-            uniqueName = uuidv4();
-            imgSource = `http://localhost:3000/img/${uniqueName}${foto.name.slice(foto.name.indexOf("."))}`;
-            foto.mv(`./src/img/${uniqueName}${foto.name.slice(foto.name.indexOf("."))}`, (err)=>{
-                if(err) {    
-                    console.log(err);
-                    res.send({
-                        success: false,
-                        msg: "Error en subida de archivo"
-                    });
-                }
-            })
-        }
+        
+        uniqueName = uuidv4();
+        imgSource = `http://localhost:3000/img/${uniqueName}${foto.name.slice(foto.name.indexOf("."))}`;
+        foto.mv(`./src/img/${uniqueName}${foto.name.slice(foto.name.indexOf("."))}`, (err)=>{
+            if(err) {    
+                console.log(err);
+                res.send({
+                    success: false,
+                    msg: "Error en subida de archivo"
+                });
+            }
+        })
         data.foto=imgSource;
-    } else{
+    }else{
         data = {
             nombre, 
             precio, 
@@ -138,14 +140,19 @@ module.exports.UpdateProduct = (req,res)=>{
             descripcion, 
             categoria_id
         }
-    }
+    }    
+    
 
     product.updateProduct(data,id)
-    .then(async (msg) => {
-        res.send(msg);
+    .then(async (info) => {
+        res.send({
+            success: true,
+            msg:info})
     })
     .catch(err=>{
         console.log(err);
-        res.send(msg)
+        res.send({
+            success: true,
+            msg:'Hubo un problema al hacer la actualizacion'})
     })
 }

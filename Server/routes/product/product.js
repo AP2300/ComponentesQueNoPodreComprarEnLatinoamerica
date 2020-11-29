@@ -62,34 +62,39 @@ exports.deleteProduct = (id)=> {
 
 
 exports.updateProduct = (data,id)=> {
+	let msg = "";
 	return new Promise( (resolve, reject) => {
-	db.query('SELECT foto FROM producto WHERE id = ?', [Number(id)], (err,res) =>{
-		if(err) {
-			console.log('error al eliminar el producto -->', error.stack);
-			return reject('Error al eliminar el producto');
-		}else{
-			db.query(`UPDATE producto SET ? WHERE id = ?`,[data,id], (error, result) => {
-				if(error) {
-					console.log('error al crear el producto -->', error.stack);
-					return reject('Error al crear el producto')
-				}else{
-					if(data.foto){
-						let image =`./src/img/`+res[0].foto.split("/")[4];
-						fs.unlink(image, function(err) {
-							if (err) {
-								let msg = "El Producto fue Editado de manera exitosa"
-								return resolve(msg);
-							} else {
-								if(result.affectedRows > 0){
-									let msg = "El Producto fue Editado de manera exitosa!"
+		db.query('SELECT foto FROM producto WHERE id = ?', [Number(id)], (err,res) =>{
+			if(err) {
+				console.log('error al eliminar el producto -->', error.stack);
+				msg = 'Error al eliminar el producto';
+				return reject(msg);
+			}else{
+				db.query(`UPDATE producto SET ? WHERE id = ?`,[data,id], (error, result) => {
+					if(error) {
+						console.log('error al crear el producto -->', error.stack);
+						msg = 'Error al crear el producto';
+						return reject(msg);
+					}else{
+						if(data.foto){
+							let image =`./src/img/`+res[0].foto.split("/")[4];
+							fs.unlink(image, function(err) {
+								if (err) {
+									msg = "El Producto fue Editado de manera exitosa"
 									return resolve(msg);
+								} else {
+									if(result.affectedRows > 0){
+										msg = "El Producto fue Editado de manera exitosa!"
+										return resolve(msg);
+									}
 								}
-							}
-						}) 
+							}) 
+						}
+						msg = 'El Producto ha sido Editado con Exito!'
+						return resolve(msg);
 					}
-				}
-			})
-		}
-	})
-  })
+				})
+			}
+		})
+  	})
 }
