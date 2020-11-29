@@ -214,10 +214,24 @@ html body a#Ventas{
     transition: 330ms;
 }
 
+.tablav tbody tr td, .tablav thead tr th {
+    border: none;
+}
+
 html body a#Ventas:hover{
     box-shadow: rgba(0, 0, 0, 0.39) 0 0 30px;
     transform: scale(1.155555555555555);
     backface-visibility: hidden;
+    transition: 330ms;
+}
+
+#cancel {
+    background-color: rgb(253, 75, 75);
+}
+
+#cancel:hover {
+    background-color: black;
+    color: white;
     transition: 330ms;
 }
 

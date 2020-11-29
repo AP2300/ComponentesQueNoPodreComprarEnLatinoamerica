@@ -14,6 +14,7 @@ function listUsers() {
         if(res.data.success == true && res.data.msg!="No hay usuarios para mostrar") {
             for (const u of res.data.data) {
                 let date = new Date(u.fecha_nacimiento);
+                let mon = (date.getMonth()+1<10) ? `0${date.getMonth()+1}` : date.getMonth()+1;
                 html += `
                 <div class="accordion " id="accordion">
                     <div class="card comentarios">
@@ -45,7 +46,7 @@ function listUsers() {
                                         Numero de Contacto: ${u.num_contacto}
                                     </div>
                                     <div class="col-sm">
-                                        Fecha de Nacimiento: ${date.getDate()}/${parseInt(date.getMonth())+1}/${date.getFullYear()}
+                                        Fecha de Nacimiento: ${date.getDate()}/${mon}/${date.getFullYear()}
                                     </div>
                                 </div>
                                 <hr>
@@ -84,7 +85,7 @@ function listUsers() {
 }
 
 function editarUsuario(id) {
-    window.location.href = './editUser.html';
+    window.location.href = `./editUser.html?id=${id}`;
 }
 
 function borrarUsuario(id) {
@@ -114,30 +115,3 @@ function borrarUsuario(id) {
 
 const token = window.localStorage.getItem('token')
 
-if(!token){
-    document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
-    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
-  </li>
-  <li class="nav-item" id="registranav">
-      <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
-  </li>`
-}else{
-    document.getElementById("insert").innerHTML=""
-    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
-
-    if(isAdmin()) {
-        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
-        <a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
-    } else {
-        var options = `<a class="nav-link hover" href="/Front/SessionClose"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
-    }
-
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
-            trigger: "click",
-            html: true,
-            content: options
-        })
-    })
-}

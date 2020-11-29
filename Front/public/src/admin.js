@@ -16,7 +16,7 @@ $(document).ready(function(){
     $("#Ventas").click(function () { 
         $("#UsersPanel").collapse("hide")
         $("#ProductsPanel").collapse("hide")
-        document.getElementById("textSelection").innerHTML="Visualice las ventas";
+        document.getElementById("textSelection").innerHTML="Historial de ventas";
     });
 }); 
 
@@ -219,32 +219,111 @@ function createProduct() {
     }
 }
 
-const token = window.localStorage.getItem('token')
-
-if(!token){
-    document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
-    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
-  </li>
-  <li class="nav-item" id="registranav">
-      <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
-  </li>`
-}else{
-    document.getElementById("insert").innerHTML=""
-    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
-    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
-
-    if(isAdmin()) {
-        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
-        <a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
-    } else {
-        var options = `<a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
+function getSales() {
+    let token = window.localStorage.getItem('token');
+    if (token == null) {
+        token = window.sessionStorage.getItem('token');
     }
 
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover({
-            trigger: "click",
-            html: true,
-            content: options
-        })
+    axios.get('http://localhost:3000/sales', {
+        'headers': { 'auth': token }
+    })
+    .then(res => {
+        console.log(res)
+        let html = ``;
+        if(res.data.success==true) {
+            for (const v of res.data.ventas) {
+                let fechaEntrega = new Date(v.fecha_entrega);
+                let fechaProcesado = new Date(v.fecha_procesado);
+                
+                html += `
+                <div class="accordion " id="accordion">
+                    <div class="card comentarios">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                    data-target="#collapse${v.tracking}">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            Orden #${v.tracking} a nombre de ${v.email}
+                                        </div>                                            
+                                    </div>
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse${v.tracking}" class="collapse">
+                            <div class="card-body mx-auto">
+                                <div class="row mx-auto">
+                                    <div class="mx-auto">
+                                        Fecha de Procesado: ${fechaProcesado.getDate()}/${parseInt(fechaProcesado.getMonth())+1}/${fechaProcesado.getFullYear()}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="mx-auto">
+                                        Fecha de Entrega Estimada: ${fechaEntrega.getDate()}/${parseInt(fechaEntrega.getMonth())+1}/${fechaEntrega.getFullYear()}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="mx-auto">
+                                        Referencia de Pago: ${v.referencia_pago}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="mx-auto">
+                                        Productos:
+                                    </div>
+                                </div>
+                                <hr>
+                                <table class="table tablav">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+                                for (const p of res.data.productos) {
+                                    if(p.venta_tracking==v.tracking) {
+                                        html += `
+                                        <tr>
+                                            <td>${p.nombre}</td>
+                                            <td>${p.cantidad}</td>
+                                        </tr>
+                                        `;
+                                    }
+                                }
+                                html +=`
+                                </tbody>
+                                </table>
+                                <hr>
+                                <div class="row">
+                                    <div class="mx-auto">
+                                        Monto: ${v.total_venta} 
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="mx-auto">
+                                        Destino: ${v.destino}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            document.getElementById("VentasPanel").innerHTML = html;
+        }
+        
+    })
+    .catch(err => {
+        console.error(err); 
     })
 }
+
+const token = window.localStorage.getItem('token')
