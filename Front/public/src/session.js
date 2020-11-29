@@ -15,6 +15,7 @@ function validSession() {
                 correo = response.data.data.email;
                 idUser = response.data.id;
                 document.getElementById("username").innerHTML="<i class='fas fa-user'></i>  "+response.data.data.email;
+                console.log(idUser);
             }
         })
         .catch(function(err) {

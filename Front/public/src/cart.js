@@ -37,7 +37,8 @@ function ShowCart(){
     .then(res => {
         console.log(res)
         var html = "";
-
+        let subTotal=0;
+        let Total=0;
         if(res.data.success){
             for(let o of res.data.data){
                 html+=`
@@ -64,9 +65,16 @@ function ShowCart(){
                     <td class="border-0 align-middle"><a href="#" class="text-dark" onclick="SubmitDelete('${o.data.id}')"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 `
-                document.getElementById("load").style.display = "none"
+            subTotal=subTotal+Number(o.data.precio*o.cantidad);
+
             }
+            console.log(subTotal);
+            document.getElementById("load").style.display = "none"
             document.getElementById("cartList").innerHTML = html;
+            document.getElementById("subTotalPrice").innerText= "$"+subTotal.toFixed(2)
+            document.getElementById("discount").innerText = "15%"
+            Total = subTotal-(subTotal*0.15);
+            document.getElementById("TotalPrice").innerText = "$"+Total.toFixed(2)
         }else{
             document.getElementById("empty-loading").innerHTML = "<h1>Tu carrito esta vacio</h1>"
         }
