@@ -37,3 +37,8 @@ function getSession(){
 function goCart(){
     window.location.href = './cart.html?id=' + idUser;
 }
+
+function CloseSession() {
+    window.localStorage.removeItem("token");
+    window.location.href="index.html"
+}

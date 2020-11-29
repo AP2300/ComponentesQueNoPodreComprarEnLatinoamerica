@@ -1,7 +1,6 @@
 const token = window.localStorage.getItem("token")
 
 async function LoadCartToBuy (){
-    console.log(idUser);
     axios.get("http://localhost:3000/buy", {params:{id:idUser}, headers:{"auth":token}})
     .then(async (res) => {
         const data = res.data.data;
@@ -29,4 +28,51 @@ async function LoadCartToBuy (){
     })
 }
 
-setTimeout(LoadCartToBuy,2000)
+setTimeout(LoadCartToBuy,2000);
+
+function MakeBuyF (){
+    const adrss = document.getElementById("address").value;
+    const date = new Date();
+    const fechaT =`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    const date2 = new Date(Date.now()+1000*60*60*24*14)
+    const fechaS = `${date2.getFullYear()}-${date2.getMonth()+1}-${date2.getDate()}`
+    const discnt = document.getElementById("discount").innerText.replace("%","");
+    const total = document.getElementById("TotalPrice").innerText.replace("$","");
+
+
+    axios.post("http://localhost:3000/MakeBuy",{id:idUser,Fentrega:fechaS,Fsalida:fechaT,addrs:adrss,discount:discnt, total:total},{headers:{"auth":token}})
+    .then(res => {
+        console.log(res)
+    })
+    .catch(err => {
+        console.error(err); 
+    })
+}
+
+if(!token){
+    document.getElementById("insert").innerHTML= `<li class="nav-item" id="usuarionav">
+    <a class="nav-link hover" href="/Front/login.html"><i class="fas fa-user"></i> Iniciar sesión</a>
+  </li>
+  <li class="nav-item" id="registranav">
+      <a class="nav-link hover" href="/Front/register.html"><i class="fas fa-user"></i> Registrarse</a>
+  </li>`
+}else{
+    document.getElementById("insert").innerHTML=""
+    document.getElementById("insert").innerHTML=`<span tabindex="0"  data-toggle="popover" data-trigger="focus" data-placement="bottom"  id="username"><i class="fas fa-user"></i> </span>
+    <a href="#" onclick="goCart()"><i class="fas fa-shopping-cart"></i></a>`
+
+    if(isAdmin()) {
+        var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
+        <a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
+    } else {
+        var options = `<a class="nav-link hover" href="#" id="CloseSession"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
+    }
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: "click",
+            html: true,
+            content: options
+        })
+    })
+}

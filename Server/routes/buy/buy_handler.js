@@ -26,3 +26,18 @@ module.exports.GetBuyDetails = (req,res)=>{
         })
     })
 }
+
+module.exports.MakeBuy = (req,res)=>{
+    const data = req.body;
+    buy.SetData(data.id,data.Fentrega, data.Fsalida, data.addrs, data.discount, data.total)
+    .then(data=>{
+        console.log(data);
+    })
+    .catch(err=>{
+        console.log(err);
+        res.send({
+            success:false,
+            msg: "error al consultar la base de datos"
+        })
+    })
+}

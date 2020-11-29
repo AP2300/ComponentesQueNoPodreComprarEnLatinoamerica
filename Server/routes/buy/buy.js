@@ -20,3 +20,17 @@ exports.GetData = (id)=>{
         })
     })
 }
+
+exports.SetData = (id,Fentrega, Fsalida, addrs, discount, total)=>{
+    return new Promise((resolve, reject)=>{
+        console.log(id);
+        db.query("SELECT * FROM carrito WHERE id_usuario = ? ",[id],(err, result1)=>{
+            if(err){
+                console.log(err);
+                reject("error al comprobar la orden del usuario")
+            }else{
+                console.log(result1);
+            }
+        })
+    })
+}
