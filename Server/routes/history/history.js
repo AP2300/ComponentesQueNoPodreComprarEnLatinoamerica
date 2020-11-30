@@ -20,6 +20,7 @@ exports.userhistory = (id)=> {
 					}
 				})
 			}
+			return resolve({res,products})
 		}
 	})
   })
