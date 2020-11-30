@@ -44,6 +44,7 @@ const user = require("./routes/user");
 const product = require("./routes/product");
 const buy = require("./routes/buy")
 const categories = require("./routes/categories");
+const history = require("./routes/history");
 const roles = require("./routes/roles");
 const sales = require("./routes/sales");
 
@@ -69,6 +70,7 @@ app.get("/roles", roles.ShowRoles);
 app.get("/sales", middle.authHeader, middle.validSing, sales.ShowSales);
 app.post("/deleteproduct", middle.authHeader, middle.validSing, product.DeleteProduct);
 app.post("/updateproduct", middle.authHeader, middle.validSing, product.UpdateProduct);
+app.get("/userhistory", middle.authHeader, middle.validSing, history.ShowHistory);
 
 
 

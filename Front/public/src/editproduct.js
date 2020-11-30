@@ -106,4 +106,75 @@ function handleChange(obj) {
 
 const token = window.localStorage.getItem('token')
 
+function changetype(value){
+    switch (Number(value)) {
+        case 1:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[1][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
 
+        case 2:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[2][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
+
+        case 3:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[3][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
+
+        case 4:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[4][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
+
+        case 5:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[5][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
+
+        case 6:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[6][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
+    
+        case 7:
+            for(let i=0;i<6;i++){
+                document.getElementById(`label${i}`).innerText = type[7][i];
+                document.getElementById(`Description${i}`).value = ""
+            }
+        break;
+
+        default:
+            alert('Hubo un error al cambiar el Tipo');
+        break;
+    }
+}
+
+$('#CustomFile').on('change',function(){
+    var fileName = $(this).val();
+    $(this).next('.custom-file-label').html(fileName.replace('C:\\fakepath\\', " "));
+})
+
+type = [
+    [],
+    ['Frecuencia','Frecuencia máxima','Nucleos/Hilos','TDP','Socket','Ram Permitida'],
+    ['Frecuencia','Tipo','Capacidad','Latencias','ECC','RGB'],
+    ['Socket','Chipset','Tipo y Slots de Ram','Puertos PCIe','Memoria Maxima','Factor de Forma'],
+    ['Frecuencia','Frecuencia Boost','Ram de Video','Version del PCIe','Resolucion Máxima Admitida','Conexiones de video'],
+    ['Capacidad','Factor de Forma','Interfaz','Dimensiones (Largo, Ancho y Alto)','Rendimiento de Lectura Secuencial','Rendimiento de Escritura Secuencial'],
+    ['Potencia','Certificacion','Modularidad','Factor de Forma','Salida Unica de 12V:','Modo 0 RPM'],
+    ['Factor de Forma','Ventiladores Incluidos','Puertos I/O','Cantidad de Bahias de Radiador','Cantidad de Bahias de Almacenamiento','Cantidad de Bahias de Ventilador'],
+]
