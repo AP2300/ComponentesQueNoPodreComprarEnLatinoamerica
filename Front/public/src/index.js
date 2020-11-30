@@ -6,7 +6,7 @@ function LoadData (){
             let temp="";
             let data = res.data.data
             console.log(data[0]);
-                for (const i in data) {
+                for (let i=0; i<3;i++) {
                 let dataArr = data[i].descripcion.split(";")
                 temp+=`
                 <div class="card" onclick="GoToProduct(${data[i].id})" style="cursor: pointer;">
