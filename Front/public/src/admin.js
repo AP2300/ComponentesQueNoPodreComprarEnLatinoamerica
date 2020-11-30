@@ -158,6 +158,29 @@ function createProduct() {
     const inputType = document.getElementById("inputType").value;
     const marcaP = document.getElementById("marcaP").value;
     const imagenP = document.getElementById("imagenP");
+    if (!nameP) {
+        return alert("El nombre está vacío")
+    }
+    else if (!priceP) {
+        return alert("El precio está vacío")
+    }
+    else if (priceP < 1) {
+        return alert("El precio no puede ser menor a 1")
+    }
+    else if (!stockP) {
+        return alert("La cantidad de stock está vacía")
+    }
+    else if (stockP < 1) {
+        return alert("El stock no puede ser menor a 1")
+    }
+    else if (!marcaP) {
+        return alert("La marca está vacía")
+    }
+    else if (!imagenP) {
+        return alert("No se seleccionó una imagen")
+    } else {
+        var valid = true;
+    }
     if(!document.getElementById("descripcion1")) {
         return alert("No se ha seleccionado un tipo de producto");
     }
@@ -186,28 +209,7 @@ function createProduct() {
         token = window.sessionStorage.getItem('token');
     }
     
-    if (!nameP) {
-        alert("El nombre está vacío")
-    }
-    else if (!priceP) {
-        alert("El precio está vacío")
-    }
-    else if (priceP < 1) {
-        alert("El precio no puede ser menor a 1")
-    }
-    else if (!stockP) {
-        alert("La cantidad de stock está vacía")
-    }
-    else if (stockP < 1) {
-        alert("El stock no puede ser menor a 1")
-    }
-    else if (!marcaP) {
-        alert("La marca está vacía")
-    }
-    else if (!imagenP) {
-        alert("No se seleccionó una imagen")
-    }
-    else {
+    if(valid) {
         var formData = new FormData();
         if(imagenP) {
             formData.append("foto", imagenP.files[0]);
