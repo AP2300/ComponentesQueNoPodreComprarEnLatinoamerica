@@ -4,10 +4,14 @@ function loadhistory(){
     let id = window.location.search
     let urlId = new URLSearchParams(id)
     let Id = urlId.get("id")
-    console.log('esperando')
     axios.get("http://localhost:3000/userhistory", {headers: {'auth':token},params:{id:Id}})
     .then(res => {
         let html = '';
+        if(res.data.data.res.length < 1){
+            html = '<h2>No tienes Compras en nuestra pagina</h2>'
+            document.getElementById('accordion').className = 'center accordion'; 
+            document.getElementById('accordion').innerHTML = html; 
+        }
         let venta = res.data.data.res
         let products = res.data.data.products
         for(let v in venta){
@@ -69,6 +73,7 @@ function addproduct(data){
     for(let d in data){
         let inner = '';
         for (let p in data[d]){
+            console.log('entre')
             inner+=`
             <div class="row w-100">
             <div class="col-md-4">
