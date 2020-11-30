@@ -38,7 +38,7 @@ function getCategoryInfo() {
         if(res.data.success === false) {
             html = "<option disabled>No hay categorias</option>";
         } else {
-            html += `<option disabled>Elegir...</option>`;
+            html += `<option selected disabled>Elegir...</option>`;
             for (const c of res.data.data) {
                 html += `<option value="${c.id}">${c.nombre}</option>`;
             }
@@ -158,13 +158,34 @@ function createProduct() {
     const inputType = document.getElementById("inputType").value;
     const marcaP = document.getElementById("marcaP").value;
     const imagenP = document.getElementById("imagenP");
-    const descripcionP = document.getElementById("descripcionP").value;
+    if(!document.getElementById("descripcion1")) {
+        return alert("No se ha seleccionado un tipo de producto");
+    }
+    var descripcion = [];
+    descripcion[0] = document.getElementById("descripcion1").value;
+    descripcion[1] = document.getElementById("descripcion2").value;
+    descripcion[2] = document.getElementById("descripcion3").value;
+    descripcion[3] = document.getElementById("descripcion4").value;
+    descripcion[4] = document.getElementById("descripcion5").value;
+    descripcion[5] = document.getElementById("descripcion6").value;
+    var des = ``;
+    for (let i=0; i<6; i++) {
+        console.log('d'+(i+1));
+        let d = document.getElementById('d'+(i+1)).innerText;
+        if (!descripcion[i]) {
+            return alert(`${d} está vacía`);
+        }
+        let str = `${d}:${descripcion[i]};`;
+        des += str;
+    }
+    des = des.substring(0, des.length - 1);
+    console.log(des);
 
     let token = window.localStorage.getItem('token');
     if (token == null) {
         token = window.sessionStorage.getItem('token');
     }
-
+    
     if (!nameP) {
         alert("El nombre está vacío")
     }
@@ -186,9 +207,6 @@ function createProduct() {
     else if (!imagenP) {
         alert("No se seleccionó una imagen")
     }
-    else if (!descripcionP) {
-       alert("La descripción está vacía")
-    }
     else {
         var formData = new FormData();
         if(imagenP) {
@@ -203,7 +221,7 @@ function createProduct() {
         formData.append("cantidad_stock", stockP);
         formData.append("categoria_id", inputType);
         formData.append("marca", marcaP);
-        formData.append("descripcion", descripcionP);
+        formData.append("descripcion", des);
 
         axios.post('http://localhost:3000/product', formData, {
             'headers': { 'auth': token }
@@ -216,6 +234,103 @@ function createProduct() {
         .catch(err => {
             console.error(err); 
         })
+    }
+}
+
+function getType() {
+    let html = `
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="descripcion1" id="d1"></label>
+            <input type="text" class="form-control" id="descripcion1" rows="3">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="descripcion2" id="d2"></label>
+            <input type="text" class="form-control" id="descripcion2" rows="3">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="descripcion3" id="d3"></label>
+            <input type="text" class="form-control" id="descripcion3" rows="3">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4" >
+            <label for="descripcion4" id="d4"></label>
+            <input type="text" class="form-control" id="descripcion4" rows="3">
+        </div>
+        <div class="form-group col-md-4" >
+            <label for="descripcion5" id="d5"></label>
+            <input type="text" class="form-control" id="descripcion5" rows="3">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="descripcion6" id="d6"></label>
+            <input type="text" class="form-control" id="descripcion6" rows="3">
+        </div>
+    </div>
+    `;
+
+    document.getElementById("des").innerHTML = html;
+
+    let type = document.getElementById("inputType").value;
+
+    switch(type) {
+        case "1":
+            document.getElementById('d1').innerText = 'Frecuencia';
+            document.getElementById('d2').innerText = 'Frecuencia Máxima';
+            document.getElementById('d3').innerText = 'Núcleos/Hilos';
+            document.getElementById('d4').innerText = 'TDP';
+            document.getElementById('d5').innerText = 'Socket';
+            document.getElementById('d6').innerText = 'RAM Permitida';
+            break;
+        case "2":
+            document.getElementById('d1').innerText = 'Frecuencia';
+            document.getElementById('d2').innerText = 'Tipo';
+            document.getElementById('d3').innerText = 'Capacidad';
+            document.getElementById('d4').innerText = 'Latencias';
+            document.getElementById('d5').innerText = 'ECC';
+            document.getElementById('d6').innerText = 'RGB';
+            break;
+        case "3":
+            document.getElementById('d1').innerText = 'Socket';
+            document.getElementById('d2').innerText = 'Chipset';
+            document.getElementById('d3').innerText = 'Tipo y Slots de RAM';
+            document.getElementById('d4').innerText = 'Puertos PCIe';
+            document.getElementById('d5').innerText = 'Memoria Máxima';
+            document.getElementById('d6').innerText = 'Factor de Forma';
+            break;
+        case "4":
+            document.getElementById('d1').innerText = 'Frecuencia';
+            document.getElementById('d2').innerText = 'Frecuencia Boost';
+            document.getElementById('d3').innerText = 'RAM de Video';
+            document.getElementById('d4').innerText = 'Version del PCIe';
+            document.getElementById('d5').innerText = 'Resolucion Máxima Admitida';
+            document.getElementById('d6').innerText = 'Conexiones de Video';
+            break;
+        case "5":
+            document.getElementById('d1').innerText = 'Capacidad';
+            document.getElementById('d2').innerText = 'Factor de Forma';
+            document.getElementById('d3').innerText = 'Interfaz';
+            document.getElementById('d4').innerText = 'Dimensiones (largo, ancho y alto)';
+            document.getElementById('d5').innerText = 'Rendimiento de lectura secuencial';
+            document.getElementById('d6').innerText = 'Rendimiento de escritura secuencial';
+            break;
+        case "6":
+            document.getElementById('d1').innerText = 'Potencia';
+            document.getElementById('d2').innerText = 'Certificacion';
+            document.getElementById('d3').innerText = 'Modularidad';
+            document.getElementById('d4').innerText = 'Factor de forma';
+            document.getElementById('d5').innerText = 'Salida unica de 12v';
+            document.getElementById('d6').innerText = 'Modo 0 RPM';
+            
+            break;
+        case "7": 
+        document.getElementById('d1').innerText = 'Factor de Forma';
+        document.getElementById('d2').innerText = 'Ventiladores Incluidos';
+        document.getElementById('d3').innerText = 'Puertos I/O';
+        document.getElementById('d4').innerText = 'Cantidad de Bahias de Radiador';
+        document.getElementById('d5').innerText = 'Cantidad de Bahias de Almacenamiento';
+        document.getElementById('d6').innerText = 'Cantidad de Bahias de Ventilador';
+            break;
     }
 }
 
