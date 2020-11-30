@@ -12,7 +12,6 @@ function validSession() {
             'headers': {'auth':token}
         })
         .then(function (response){
-            console.log(response.data);
             if(response.data.log===true){
                 correo = response.data.data.email;
                 idUser = response.data.id;
@@ -31,6 +30,7 @@ function validSession() {
                     console.log(rol);
                     if(rol===1) {
                         var options = `<a class="nav-link hover" href="/Front/admin.html"><i class="fas fa-user-cog"></i> Panel Administrativo</a>
+                        <a class="nav-link hover" href="/Front/history.html?id=${idUser}"><i class="fas fa-history"></i> Historial de Compra</a>
                         <a class="nav-link hover" href="/Front/CloseSession.html" ><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`
                     } else {
                         var options = `<a class="nav-link hover" href="/Front/CloseSession.html" ><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>`;
